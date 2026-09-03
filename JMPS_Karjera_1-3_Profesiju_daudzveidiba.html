@@ -125,7 +125,8 @@ h2{color:var(--zils);font-size:26px;margin:2px 0 6px}
   padding:12px 10px;cursor:pointer;min-height:60px;display:flex;align-items:center;gap:10px;text-align:left}
 .vienība svg{width:30px;height:30px;stroke:var(--zils);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .vienība.izvēlēts{border-color:var(--oranžs);background:#fff2e6}
-.vienība.pareizi{border-color:var(--cd);background:var(--cd-f);cursor:default}
+.vienība.pareizi{cursor:default;font-weight:600}
+.vienība.pareizi svg{stroke-width:2.1}
 .vienība.nepareizi{border-color:#c0392b;background:#fdecea;animation:kratīt .3s}
 @keyframes kratīt{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -377,7 +378,7 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
   <!-- ===================== 3. DARBARĪKI ===================== -->
   <section class="skats" id="s3" role="tabpanel">
     <h2>Kam pieder darbarīks?</h2>
-    <p class="pamāc">Ievelc darbarīku pie profesijas vai pieskaries vispirms darbarīkam, tad profesijai. Pareizs pāris paliek zaļš.</p>
+    <p class="pamāc">Ievelc darbarīku pie profesijas vai pieskaries vispirms darbarīkam, tad profesijai. Katrs pareizais pāris iekrāsojas savā krāsā, un pie profesijas parādās tā paša darbarīka zīme.</p>
     <div class="rīki nedrukāt">
       <button class="poga" id="jaukt3">Sajaukt no jauna</button>
       <span class="statuss" id="statuss3"></span>
@@ -761,6 +762,11 @@ const PĀRI = [
  ['Kalkulators','Grāmatvedis','i-kalkulators'],['Mikroskops','Biologs','i-mikroskops'],['Šļūtene','Ugunsdzēsējs','i-liesma'],
  ['Mikseris','Konditors','i-kūka'],['Drons','Dronu operators','i-drons'],['Rasējums','Arhitekts','i-māja']
 ];
+const PĀRU_KRĀSAS = [
+ ['#2E74B5','#e3f0fb'],['#C75000','#fdece2'],['#2E7D32','#e5f4e6'],['#6B3FA0','#efe7fa'],
+ ['#8A6D1F','#f8f0dc'],['#0F8B8D','#ddf1f1'],['#B03060','#fbe4ec'],['#4A5D9E','#e7eaf8'],
+ ['#7A8B1F','#f1f5da'],['#B8860B','#fbf1d8'],['#556B7A','#e9eef2'],['#C0392B','#fdece9']
+];
 let izv3 = null, atrisināti3 = 0;
 function zīmēt3(){
   izv3=null; atrisināti3=0;
@@ -804,9 +810,25 @@ function zīmēt3(){
 function pārbaudīt3(rīks, mērķis){
   if(mērķis.classList.contains('pareizi') || rīks.classList.contains('pareizi')) return;
   if(rīks.dataset.p === mērķis.dataset.n){
-    rīks.classList.remove('izvēlēts'); rīks.classList.add('pareizi'); rīks.draggable = false;
-    mērķis.classList.add('pareizi');
-    qq('#prof3 .vienība').forEach(x=>x.classList.remove('mērķis'));
+    const nr = PĀRI.findIndex(x => x[1] === rīks.dataset.p);
+    const [tumšs, gaišs] = PĀRU_KRĀSAS[nr % PĀRU_KRĀSAS.length];
+
+    // profesijai pieliek tā paša darbarīka zīmi
+    if(!mērķis.querySelector('svg'))
+      mērķis.insertAdjacentHTML('afterbegin', ikona(PĀRI[nr][2]));
+
+    [rīks, mērķis].forEach(el => {
+      el.classList.remove('izvēlēts');
+      el.classList.add('pareizi');
+      el.style.borderColor = tumšs;
+      el.style.background = gaišs;
+      el.style.color = tumšs;
+      const zīme = el.querySelector('svg');
+      if(zīme) zīme.style.stroke = tumšs;
+    });
+    rīks.draggable = false;
+
+    qq('#prof3 .vienība').forEach(x => x.classList.remove('mērķis'));
     atrisināti3++; izv3 = null;
     q('#statuss3').textContent = atrisināti3===PĀRI.length
       ? 'Visi pāri atrasti. Lieliski!' : `Pareizi! Atrasti ${atrisināti3} no ${PĀRI.length}.`;
@@ -827,7 +849,7 @@ const VIETAS = [
 ];
 const DARBINIEKI = [
  {n:'Skolotājs',v:['skola']},{n:'Bibliotekārs',v:['skola']},{n:'Treneris',v:['skola']},
- {n:'Ārsts',v:['slimnīca']},{n:'Medmāsa',v:['slimnīca']},{n:'Fizioterapeits',v:['slimnīca']},
+ {n:'Ārsts',v:['slimnīca']},{n:'Medmāsa',v:['slimnīca','skola']},{n:'Fizioterapeits',v:['slimnīca']},
  {n:'Zemnieks',v:['sēta']},{n:'Biškopis',v:['sēta']},{n:'Veterinārārsts',v:['sēta']},
  {n:'Būvnieks',v:['būve']},{n:'Celtņa operators',v:['būve']},{n:'Arhitekts',v:['būve']},
  {n:'Aktieris',v:['teātris']},{n:'Mūziķis',v:['teātris']},{n:'Modes mākslinieks',v:['teātris']},
