@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profesiju daudzveidība — Jaunmārupes pamatskola</title>
+<style>
+:root{
+  --zils:#1F4E79; --zils2:#2E74B5; --oranžs:#C75000;
+  --lapa:#ffffff; --teksts:#22303f; --klusi:#5b6b7a;
+  --mala:#d8e2ec; --ēna:0 10px 30px rgba(31,78,121,.12);
+  --cc:#2E74B5; --cc-f:#e3f0fb;
+  --ct:#C75000; --ct-f:#fdece2;
+  --cd:#2E7D32; --cd-f:#e5f4e6;
+  --cm:#6B3FA0; --cm-f:#efe7fa;
+  --cz:#8A6D1F; --cz-f:#f8f0dc;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:Candara,Aptos,"Segoe UI",system-ui,sans-serif;
+  color:var(--teksts);
+  background:
+    radial-gradient(760px 520px at 8% -8%, #dbe9f7 0%, rgba(219,233,247,0) 62%),
+    radial-gradient(680px 480px at 96% 4%, #fbe6d6 0%, rgba(251,230,214,0) 60%),
+    radial-gradient(700px 520px at 50% 108%, #e6f2e4 0%, rgba(230,242,228,0) 62%),
+    #f3f6fa;
+  min-height:100vh;
+  padding:14px;
+}
+.lapa{
+  max-width:1500px;margin:0 auto;background:var(--lapa);
+  border-radius:26px;box-shadow:var(--ēna);padding:20px 26px 26px;position:relative;overflow:hidden;
+}
+.lapa::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;
+  background:rgba(46,116,181,.06);top:-140px;left:-90px}
+.lapa::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+  background:rgba(199,80,0,.05);top:-110px;right:-70px}
+
+/* ===== GALVA ===== */
+.galva{display:flex;align-items:center;gap:22px;position:relative;z-index:2;border-bottom:3px solid var(--mala);padding-bottom:14px}
+.galva .logo{width:118px;flex:none}
+.galva .logo img{width:100%;height:auto;display:block}
+.galva h1{margin:0;font-size:38px;letter-spacing:.5px;color:var(--zils);line-height:1.05}
+.galva .apakš{margin:4px 0 0;color:var(--klusi);font-size:17px}
+.autors{margin:6px 0 0;font-size:13.5px;color:var(--klusi)}
+.autors b{color:var(--zils)}
+.klase-zīme{margin-left:auto;flex:none;background:var(--zils);color:#fff;border-radius:999px;
+  padding:9px 20px;font-size:16px;letter-spacing:.6px}
+
+/* ===== CILNES ===== */
+.cilnes{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 18px;position:relative;z-index:2}
+.cilnes button{
+  font:inherit;font-size:16.5px;border:2px solid var(--mala);background:#f7fafd;color:var(--klusi);
+  padding:11px 18px;border-radius:14px 14px 0 0;cursor:pointer;min-height:52px;transition:background .15s,color .15s}
+.cilnes button:hover{background:#eef5fc}
+.cilnes button[aria-selected="true"]{background:var(--zils);border-color:var(--zils);color:#fff}
+.cilnes button:focus-visible,.poga:focus-visible,.kartīte:focus-visible{outline:3px solid var(--oranžs);outline-offset:2px}
+.skats{display:none;position:relative;z-index:2}
+.skats.aktīvs{display:block}
+h2{color:var(--zils);font-size:26px;margin:2px 0 6px}
+.pamāc{color:var(--klusi);font-size:16.5px;margin:0 0 14px;max-width:78ch}
+
+/* ===== POGAS ===== */
+.poga{font:inherit;font-size:16px;background:var(--zils);color:#fff;border:none;border-radius:12px;
+  padding:12px 20px;cursor:pointer;min-height:50px}
+.poga:hover{background:var(--zils2)}
+.poga.klusa{background:#eef3f8;color:var(--zils);border:2px solid var(--mala)}
+.poga.klusa:hover{background:#e2ecf6}
+.poga.oranža{background:var(--oranžs)}
+.poga.oranža:hover{background:#e06412}
+.rīki{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.statuss{font-size:17px;color:var(--zils);font-weight:600;min-height:24px}
+
+/* ===== JOMU KRĀSAS ===== */
+.j-cc{--j:var(--cc);--jf:var(--cc-f)}
+.j-ct{--j:var(--ct);--jf:var(--ct-f)}
+.j-cd{--j:var(--cd);--jf:var(--cd-f)}
+.j-cm{--j:var(--cm);--jf:var(--cm-f)}
+.j-cz{--j:var(--cz);--jf:var(--cz-f)}
+
+/* ===== 1. IEVADS ===== */
+.flīzes{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.flīze{background:var(--jf);border:3px solid var(--j);border-radius:20px;padding:16px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:10px;min-height:250px}
+.flīze .ikona{width:88px;height:88px;border-radius:50%;background:#fff;border:3px solid var(--j);
+  display:grid;place-items:center;cursor:pointer;transition:transform .35s}
+.flīze .ikona:hover{transform:scale(1.07)}
+.flīze .ikona svg{width:48px;height:48px;stroke:var(--j);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.flīze h3{margin:0;font-size:19px;color:var(--j);line-height:1.15}
+.flīze p{margin:0;font-size:15.5px;color:var(--teksts);line-height:1.35}
+.flīze .k{margin-top:auto;font:inherit;font-size:15px;background:var(--j);color:#fff;border:none;
+  border-radius:10px;padding:9px 16px;cursor:pointer;min-height:44px}
+.zināji{margin-top:16px;background:#fff6ec;border:2px dashed var(--oranžs);border-radius:16px;padding:14px 18px;font-size:17px}
+.zināji b{color:var(--oranžs)}
+
+/* ===== KARTOTĒKA ===== */
+.filtrs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filtrs button{font:inherit;font-size:15.5px;border:2px solid var(--mala);background:#fff;color:var(--klusi);
+  border-radius:999px;padding:10px 18px;cursor:pointer;min-height:46px}
+.filtrs button[aria-pressed="true"]{background:var(--j,var(--zils));border-color:var(--j,var(--zils));color:#fff}
+.kartes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kartīte{background:var(--jf);border:3px solid var(--j);border-radius:18px;padding:14px;cursor:pointer;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;min-height:132px;font:inherit}
+.kartīte svg{width:42px;height:42px;stroke:var(--j);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.kartīte .n{font-size:18px;color:var(--j);font-weight:600;line-height:1.2}
+.logs{position:fixed;inset:0;background:rgba(20,35,50,.55);display:none;place-items:center;z-index:50;padding:20px}
+.logs.redzams{display:grid}
+.loga-saturs{background:#fff;border-radius:22px;max-width:660px;width:100%;padding:24px 26px;
+  border-top:12px solid var(--j);max-height:94vh;overflow-y:auto}
+.loga-saturs .galvene{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.loga-saturs .galvene svg{width:56px;height:56px;stroke:var(--j);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.loga-saturs h3{margin:0;font-size:28px;color:var(--j)}
+.loga-saturs .joma{font-size:15px;color:var(--klusi)}
+.rindas{display:grid;gap:10px;margin:14px 0 18px}
+.rinda{display:grid;grid-template-columns:150px 1fr;gap:12px;font-size:17px;align-items:start}
+.rinda span{color:var(--klusi)}
+.rinda b{font-weight:600}
+
+/* ===== PĀRI ===== */
+.pāru-lauks{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.kolonna h3{color:var(--zils);font-size:19px;margin:0 0 10px}
+.saraksts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vienība{font:inherit;font-size:16.5px;background:#f7fafd;border:2px solid var(--mala);border-radius:14px;
+  padding:12px 10px;cursor:pointer;min-height:60px;display:flex;align-items:center;gap:10px;text-align:left}
+.vienība svg{width:30px;height:30px;stroke:var(--zils);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.vienība.izvēlēts{border-color:var(--oranžs);background:#fff2e6}
+.vienība.pareizi{border-color:var(--cd);background:var(--cd-f);cursor:default}
+.vienība.nepareizi{border-color:#c0392b;background:#fdecea;animation:kratīt .3s}
+@keyframes kratīt{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== VIETAS ===== */
+.vietu-lauks{display:grid;grid-template-columns:300px 1fr;gap:20px}
+.čipi{display:flex;flex-wrap:wrap;gap:8px;align-content:start}
+.čips{font:inherit;font-size:16px;border:2px solid var(--j);background:var(--jf);color:var(--j);
+  border-radius:999px;padding:10px 15px;cursor:pointer;min-height:46px}
+.čips.izvēlēts{background:var(--j);color:#fff}
+.čips.izlietots{opacity:.35;pointer-events:none}
+.vietas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vieta{border:3px solid var(--mala);border-radius:18px;padding:12px;background:#fbfdff;min-height:150px}
+.vieta h4{margin:0 0 8px;color:var(--zils);font-size:17.5px;display:flex;align-items:center;gap:8px}
+.vieta h4 svg{width:26px;height:26px;stroke:var(--zils);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.vieta.mērķis{border-color:var(--oranžs);background:#fff8f2}
+.vieta .saturs{display:flex;flex-wrap:wrap;gap:6px}
+.mazčips{font-size:15px;border-radius:999px;padding:6px 12px;border:2px solid var(--j);background:var(--jf);color:var(--j)}
+.mazčips.slikti{border-color:#c0392b;background:#fdecea;color:#c0392b}
+
+/* ===== ĶĒDE ===== */
+.ķēdes-izvēle{display:flex;gap:10px;margin-bottom:14px}
+.ķēde{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:16px}
+.slots{border:3px dashed var(--mala);border-radius:16px;min-height:148px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;padding:8px;background:#fbfdff;text-align:center;font-size:15.5px;cursor:pointer}
+.slots .nr{width:30px;height:30px;border-radius:50%;background:var(--zils);color:#fff;display:grid;place-items:center;font-size:15px}
+.slots.pilns{border-style:solid;border-color:var(--zils2);background:#eff6fd}
+.slots.pareizi{border-color:var(--cd);background:var(--cd-f)}
+.slots.nepareizi{border-color:#c0392b;background:#fdecea}
+.ķēdes-kartītes{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ===== MĪKLAS ===== */
+.mīklas-lauks{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.pavedieni{display:grid;gap:12px}
+.pavediens{background:#f7fafd;border:2px solid var(--mala);border-radius:16px;padding:16px 20px;font-size:20px;
+  opacity:.25}
+.pavediens.redzams{opacity:1;border-color:var(--zils2);background:#eff6fd}
+.atbilde-kaste{border:3px solid var(--oranžs);border-radius:18px;padding:20px;text-align:center;background:#fff8f2}
+.atbilde-kaste .a{font-size:30px;color:var(--oranžs);margin:8px 0 0;min-height:38px}
+.mīklas-skaitītājs{font-size:16px;color:var(--klusi)}
+
+/* ===== MANA IZVĒLE ===== */
+.izvēles-lauks{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:start}
+.izvēles-kartes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-height:430px;overflow:auto;padding-right:6px}
+.izv{font:inherit;font-size:15.5px;border:2px solid var(--j);background:var(--jf);color:var(--j);
+  border-radius:14px;padding:10px 8px;cursor:pointer;min-height:66px;text-align:center;line-height:1.2}
+.izv.izvēlēts{background:var(--j);color:#fff}
+.kopsav{border:3px solid var(--zils);border-radius:18px;padding:18px;background:#f7fafd}
+.kopsav h3{margin:0 0 10px;color:var(--zils);font-size:19px}
+.kopsav ol{margin:0 0 12px;padding-left:22px;font-size:16.5px;line-height:1.5}
+.josla{height:22px;border-radius:999px;background:#e7eef5;overflow:hidden;display:flex;margin:8px 0 6px}
+.josla i{display:block;height:100%}
+.leģenda{display:flex;flex-wrap:wrap;gap:10px;font-size:14.5px;color:var(--klusi)}
+.leģenda span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;background:var(--j)}
+.skolēni{margin-top:14px}
+.iniciāļi{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.inic{width:46px;height:46px;border-radius:50%;border:2px solid var(--zils2);background:#eff6fd;color:var(--zils);
+  font:inherit;font-size:15px;cursor:pointer}
+.inic.aktīvs{background:var(--zils);color:#fff}
+input[type=text]{font:inherit;font-size:16px;padding:11px 12px;border:2px solid var(--mala);border-radius:12px;width:100%}
+
+/* ===== PAŠPĀRBAUDE ===== */
+.jautājumi{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.jaut{border:2px solid var(--mala);border-radius:16px;padding:14px 16px;background:#fbfdff}
+.jaut .t{font-size:17px;margin-bottom:10px;line-height:1.35}
+.atbildes{display:flex;flex-direction:column;gap:8px}
+.atbildes button{font:inherit;font-size:16px;text-align:left;border:2px solid var(--mala);background:#fff;
+  border-radius:12px;padding:11px 14px;cursor:pointer;min-height:48px}
+.atbildes button.pareizi{border-color:var(--cd);background:var(--cd-f)}
+.atbildes button.nepareizi{border-color:#c0392b;background:#fdecea}
+.skaidrojums{display:none;margin-top:10px;font-size:15.5px;color:var(--klusi);border-left:4px solid var(--zils2);padding-left:12px}
+.skaidrojums.redzams{display:block}
+.punkti{font-size:20px;color:var(--zils);font-weight:600;margin:14px 0 0}
+
+/* ===== KARJERAS BLOKS ===== */
+details.karjera{margin-top:18px;border:2px solid var(--zils2);border-radius:16px;background:#f2f8fd;overflow:hidden}
+details.karjera>summary{cursor:pointer;padding:13px 18px;font-size:17px;color:var(--zils);font-weight:600;list-style:none}
+details.karjera>summary::-webkit-details-marker{display:none}
+details.karjera>summary::before{content:"▸ ";color:var(--oranžs)}
+details.karjera[open]>summary::before{content:"▾ "}
+details.karjera .k-saturs{padding:0 18px 16px;font-size:16.5px;line-height:1.5;max-width:100ch}
+details.karjera .k-saturs b{color:var(--zils)}
+
+/* ===== FOTO UN PIEZĪMES ===== */
+.foto{width:100%;max-height:215px;object-fit:cover;border-radius:14px;display:block;margin:0 0 14px;border:2px solid var(--mala)}
+.piezīmju-kaste{border:2px solid var(--j,var(--zils));border-radius:16px;padding:12px 14px;background:#fbfdff;margin-top:6px}
+.pk-galva{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.pk-galva b{font-size:16.5px;color:var(--j,var(--zils))}
+.zīm-rīki{display:flex;gap:6px;flex-wrap:wrap}
+.zīm-rīki button{font:inherit;font-size:14px;border:2px solid var(--mala);background:#fff;border-radius:10px;
+  padding:7px 12px;cursor:pointer;min-height:40px}
+.zīm-rīki button[aria-pressed="true"]{border-color:var(--oranžs);background:#fff2e6}
+.krāsa{width:40px;height:40px;border-radius:50%;padding:0;border:3px solid #fff;box-shadow:0 0 0 2px var(--mala);cursor:pointer}
+.krāsa[aria-pressed="true"]{box-shadow:0 0 0 3px var(--oranžs)}
+canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--mala);border-radius:12px;touch-action:none;display:block}
+.pk-piez{font-size:14px;color:var(--klusi);margin:8px 0 0}
+.slots img{width:100%;height:72px;object-fit:cover;border-radius:8px;margin:4px 0 2px}
+.prod-foto{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.prod-foto img{width:210px;height:130px;object-fit:cover;border-radius:14px;border:2px solid var(--mala)}
+.prod-foto p{margin:0;font-size:17px;color:var(--klusi);max-width:60ch}
+#foto6 img{width:100%;max-height:190px;object-fit:cover;border-radius:14px;margin-top:12px}
+.vieta.pārvelk{border-color:var(--oranžs);background:#fff2e6}
+.vienība.mērķis{border-style:dashed;border-color:var(--zils2)}
+.vienība.pārvelk{border-color:var(--oranžs);background:#fff2e6}
+.slots.mērķis{border-color:var(--zils2)}
+.slots.pārvelk{border-color:var(--oranžs);background:#fff2e6}
+.čips[draggable="true"],.vienība[draggable="true"]{cursor:grab}
+/* ===== DRUKA ===== */
+.druka{display:none}
+@media print{
+  body{background:#fff;padding:0}
+  .lapa{box-shadow:none;border-radius:0;padding:0;max-width:none}
+  .cilnes,.galva .klase-zīme,.rīki,.nedrukāt{display:none!important}
+  .skats{display:none!important}
+  .druka{display:block}
+  .drukas-lapa{page-break-after:always;padding:18mm}
+  .drukas-lapa h2{font-size:24px}
+}
+@media (max-width:1200px){
+  .flīzes{grid-template-columns:repeat(3,1fr)}
+  .kartes{grid-template-columns:repeat(3,1fr)}
+  .izvēles-lauks,.mīklas-lauks,.vietu-lauks,.pāru-lauks{grid-template-columns:1fr}
+  .izvēles-kartes{grid-template-columns:repeat(4,1fr)}
+  .jautājumi{grid-template-columns:1fr}
+  .ķēde{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-height:860px){
+  .lapa{padding:14px 20px 20px}
+  .galva h1{font-size:31px}
+  .flīze{min-height:224px}
+  .cilnes button{padding:9px 14px;font-size:15.5px;min-height:46px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-grāmata" viewBox="0 0 24 24"><path d="M4 4h7v16H4z"/><path d="M13 4h7v16h-7z"/><path d="M11 4v16"/></symbol>
+<symbol id="i-stetoskops" viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="10" r="2.4"/></symbol>
+<symbol id="i-medicīna" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M12 9.5v6M9 12.5h6"/></symbol>
+<symbol id="i-grozs" viewBox="0 0 24 24"><path d="M4 7h16l-2 11H6z"/><path d="M9 7a3 3 0 0 1 6 0"/></symbol>
+<symbol id="i-vairogs" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-liesma" viewBox="0 0 24 24"><path d="M12 3c4 4 5 6 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3 0-5 1-8z"/></symbol>
+<symbol id="i-šķēres" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8 16L18 4M16 16L6 4"/></symbol>
+<symbol id="i-svilpe" viewBox="0 0 24 24"><path d="M3 11h10l7-3v9l-7-3H3z"/><circle cx="6.5" cy="14.5" r="3"/></symbol>
+<symbol id="i-ķieģelis" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="5"/><rect x="3" y="12" width="8" height="5"/><rect x="13" y="12" width="8" height="5"/></symbol>
+<symbol id="i-uzgrieznis" viewBox="0 0 24 24"><path d="M17 4a5 5 0 0 0-6 6L4 17l3 3 7-7a5 5 0 0 0 6-6l-3 3-3-1-1-3z"/></symbol>
+<symbol id="i-zibens" viewBox="0 0 24 24"><path d="M13 2L5 13h6l-2 9 9-12h-6z"/></symbol>
+<symbol id="i-lidmašīna" viewBox="0 0 24 24"><path d="M2 13l20-7-6 15-3-6z"/><path d="M13 15l-4 4v-4"/></symbol>
+<symbol id="i-vilciens" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 10h14M8 20l-2 2M16 20l2 2"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/></symbol>
+<symbol id="i-drons" viewBox="0 0 24 24"><rect x="9" y="9" width="6" height="6" rx="2"/><path d="M9 9L5 5M15 9l4-4M9 15l-4 4M15 15l4 4"/><circle cx="4" cy="4" r="2"/><circle cx="20" cy="4" r="2"/></symbol>
+<symbol id="i-zāģis" viewBox="0 0 24 24"><path d="M3 8h13l4 4-4 4H3z"/><path d="M3 16l2-2 2 2 2-2 2 2 2-2"/></symbol>
+<symbol id="i-celtnis" viewBox="0 0 24 24"><path d="M4 21h8M8 21V4h12"/><path d="M8 4l6 6M20 4v6h-4"/><rect x="17" y="12" width="6" height="4"/></symbol>
+<symbol id="i-ķepa" viewBox="0 0 24 24"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 11c-4 0-6 3-6 5s2 3 6 3 6-1 6-3-2-5-6-5z"/></symbol>
+<symbol id="i-augs" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M12 12C8 12 6 9 6 5c4 0 6 3 6 7z"/><path d="M12 14c4 0 6-3 6-7-4 0-6 3-6 7z"/></symbol>
+<symbol id="i-traktors" viewBox="0 0 24 24"><rect x="9" y="5" width="7" height="6"/><path d="M4 17h16"/><circle cx="7" cy="17" r="3.4"/><circle cx="18" cy="17" r="2.4"/></symbol>
+<symbol id="i-koks" viewBox="0 0 24 24"><path d="M12 21v-6"/><path d="M12 15a6 6 0 0 0 0-12 6 6 0 0 0 0 12z"/><path d="M8 9h8"/></symbol>
+<symbol id="i-mikroskops" viewBox="0 0 24 24"><path d="M4 21h16"/><path d="M9 18a6 6 0 0 0 8-6"/><path d="M11 4l5 5-3 3-5-5z"/><path d="M7 18h6"/></symbol>
+<symbol id="i-zivs" viewBox="0 0 24 24"><path d="M3 12c4-6 12-6 16 0-4 6-12 6-16 0z"/><path d="M19 12l3-3v6z"/><circle cx="8" cy="11" r="1"/></symbol>
+<symbol id="i-bite" viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="4" ry="6"/><path d="M8 12h8M8 16h8"/><path d="M12 8L8 4M12 8l4-4"/></symbol>
+<symbol id="i-lapa" viewBox="0 0 24 24"><path d="M20 4c-9 0-15 4-15 11a6 6 0 0 0 9 5c5-2 6-9 6-16z"/><path d="M5 20L14 9"/></symbol>
+<symbol id="i-ota" viewBox="0 0 24 24"><path d="M14 3l7 7-7 6-6-6z"/><path d="M8 16c-2 1-3 3-3 5 3 0 5-1 6-3"/></symbol>
+<symbol id="i-nots" viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></symbol>
+<symbol id="i-maska" viewBox="0 0 24 24"><path d="M3 5h18v6a9 9 0 0 1-18 0z"/><circle cx="9" cy="10" r="1.2"/><circle cx="15" cy="10" r="1.2"/><path d="M9 14c2 1.5 4 1.5 6 0"/></symbol>
+<symbol id="i-kvadrāti" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="4"/><rect x="3" y="13" width="8" height="8" rx="4"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+<symbol id="i-kamera" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="3"/><circle cx="12" cy="13.5" r="4"/><path d="M8 7l2-3h4l2 3"/></symbol>
+<symbol id="i-kūka" viewBox="0 0 24 24"><path d="M4 20h16v-6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4z"/><path d="M12 10V6M9 6c0-2 3-2 3-4"/><path d="M4 16c3 2 5-2 8 0s5 2 8 0"/></symbol>
+<symbol id="i-adata" viewBox="0 0 24 24"><path d="M7 3v18M17 3v18"/><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 3v4M12 17v4"/></symbol>
+<symbol id="i-māja" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M6 10v10h12V10"/><rect x="10" y="14" width="4" height="6"/></symbol>
+<symbol id="i-kalkulators" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="3"/><rect x="7" y="5" width="10" height="4"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></symbol>
+<symbol id="i-kods" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13 4l-2 16"/></symbol>
+<symbol id="i-diagramma" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="7" y="12" width="3" height="8"/><rect x="12" y="8" width="3" height="12"/><rect x="17" y="14" width="3" height="6"/></symbol>
+<symbol id="i-plaukts" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18"/><path d="M7 3v6M14 15v6"/></symbol>
+<symbol id="i-mikrofons" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3M9 21h6"/></symbol>
+<symbol id="i-globuss" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="i-slēdzene" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/></symbol>
+<symbol id="i-karte" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+<symbol id="i-palete" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2A5 5 0 0 0 22 12c0-5-4.5-9-10-9z"/><circle cx="8" cy="9.5" r="1.2"/><circle cx="12" cy="7" r="1.2"/><circle cx="16" cy="9.5" r="1.2"/><circle cx="7.5" cy="14" r="1.2"/></symbol>
+<symbol id="i-cilvēks" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7"/></symbol>
+<symbol id="i-karjera" viewBox="0 0 24 24"><path d="M3 21h5v-6H3zM10 21h5V10h-5zM17 21h5V4h-5z"/></symbol>
+<symbol id="i-skola" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6"/><path d="M5 10v11h14V10"/><path d="M9 21v-6h6v6"/></symbol>
+<symbol id="i-slimnīca" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M12 8v7M8.5 11.5h7"/></symbol>
+<symbol id="i-sēta" viewBox="0 0 24 24"><path d="M4 21V9l5-4 5 4v12z"/><path d="M14 21V13h6v8"/><path d="M8 21v-5h2v5"/></symbol>
+<symbol id="i-būve" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6 21V8h6v13"/><path d="M12 12h6v9"/><path d="M6 4l3 3"/></symbol>
+<symbol id="i-teātris" viewBox="0 0 24 24"><path d="M4 4h16v9a8 8 0 0 1-16 0z"/><circle cx="9" cy="9" r="1.2"/><circle cx="15" cy="9" r="1.2"/><path d="M9 13c2 1.5 4 1.5 6 0"/></symbol>
+<symbol id="i-veikals" viewBox="0 0 24 24"><path d="M3 8l2-4h14l2 4"/><path d="M5 8v13h14V8"/><path d="M3 8a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></symbol>
+<symbol id="i-maize" viewBox="0 0 24 24"><path d="M4 10c0-3 3-5 8-5s8 2 8 5c0 2-2 2-2 4v5H6v-5c0-2-2-2-2-4z"/></symbol>
+<symbol id="i-krekls" viewBox="0 0 24 24"><path d="M8 3L4 6l2 4 2-1v11h8V9l2 1 2-4-4-3z"/><path d="M9 3a3 3 0 0 0 6 0"/></symbol>
+</defs></svg>
+
+<div class="lapa">
+
+  <header class="galva">
+    <div class="logo">
+      <img src="data:image/png;base64,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" alt="Jaunmārupes pamatskolas logo">
+    </div>
+    <div>
+      <h1>Profesiju daudzveidība</h1>
+      <p class="apakš">Pasaulē ir tūkstošiem darbu. Šodien iepazīsim, ko cilvēki dara, kur strādā un kā darbi ir saistīti cits ar citu.</p>
+      <p class="autors">Interaktīvo rīku sagatavoja Jaunmārupes pamatskolas pedagoģe-karjeras konsultante <b>Jolanta Grosberga-Gernere</b></p>
+    </div>
+    <div class="klase-zīme">1.–3. klase</div>
+  </header>
+
+  <nav class="cilnes" role="tablist" aria-label="Nodarbības daļas">
+    <button role="tab" aria-selected="true" data-skats="s1">Par šo stundu</button>
+    <button role="tab" aria-selected="false" data-skats="s2">Profesiju kartotēka</button>
+    <button role="tab" aria-selected="false" data-skats="s3">Kam pieder darbarīks?</button>
+    <button role="tab" aria-selected="false" data-skats="s4">Kur strādā?</button>
+    <button role="tab" aria-selected="false" data-skats="s5">Profesiju ķēde</button>
+    <button role="tab" aria-selected="false" data-skats="s6">Kas es esmu?</button>
+    <button role="tab" aria-selected="false" data-skats="s7">Mana izvēle</button>
+    <button role="tab" aria-selected="false" data-skats="s8">Pašpārbaude</button>
+  </nav>
+
+  <!-- ===================== 1. PAR ŠO STUNDU ===================== -->
+  <section class="skats aktīvs" id="s1" role="tabpanel">
+    <h2>Piecas darbu pasaules</h2>
+    <p class="pamāc">Visus darbus var sakārtot piecās lielās grupās pēc tā, ar ko cilvēks strādā. Pieskaries aplītim, lai redzētu paskaidrojumu. Poga <b>K</b> atver karjeras izglītības skaidrojumu skolotājam.</p>
+    <div class="flīzes" id="flīzes"></div>
+    <div class="zināji">
+      <b>Vai zināji?</b> Profesijas nedalās zēnu un meiteņu profesijās. Autobusu var vadīt sieviete, bērnudārzā strādāt vīrietis, un celtni prot vadīt gan viens, gan otrs. Nozīme ir tam, kas cilvēkam patīk un ko viņš prot.
+    </div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — kāpēc to mācāmies</summary>
+      <div class="k-saturs">
+        <b>Prasme: pazīt darbu pasauli.</b> Bērns 1.–3. klasē zina apmēram desmit profesijas — tās, ko redz mājās, skolā un televīzijā. Ja izvēle veidojas tikai no desmit variantiem, tā ir šaura. Šīs stundas mērķis nav izvēlēties profesiju, bet paplašināt to sarakstu, no kura kādreiz varēs izvēlēties, un parādīt, ka aiz katras lietas mūsu apkārtnē stāv daudzu cilvēku darbs.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 2. KARTOTĒKA ===================== -->
+  <section class="skats" id="s2" role="tabpanel">
+    <h2>Profesiju kartotēka</h2>
+    <p class="pamāc">Izvēlies grupu un pieskaries kartītei. Uzzināsi, ko cilvēks dara, kur strādā, ar ko strādā un kura prasme viņam noder visvairāk.</p>
+    <div class="rīki nedrukāt">
+      <button class="poga" id="pdf2">Lejupielādēt piezīmes (PDF)</button>
+      <span class="statuss" id="statuss2"></span>
+    </div>
+    <div class="filtrs" id="filtrs"></div>
+    <div class="kartes" id="kartes"></div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — kā izmantot kartotēku stundā</summary>
+      <div class="k-saturs">
+        <b>Saruna pēc kartītes:</b> vai šo darbu var darīt viens pats? Kas notiktu, ja šī darba nebūtu nevienam? Kuru mācību priekšmetu skolā šis cilvēks visvairāk izmanto? Šie trīs jautājumi saista profesiju ar skolēna ikdienu un mācību priekšmetiem, nevis ar tālu nākotni.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 3. DARBARĪKI ===================== -->
+  <section class="skats" id="s3" role="tabpanel">
+    <h2>Kam pieder darbarīks?</h2>
+    <p class="pamāc">Ievelc darbarīku pie profesijas vai pieskaries vispirms darbarīkam, tad profesijai. Pareizs pāris paliek zaļš.</p>
+    <div class="rīki nedrukāt">
+      <button class="poga" id="jaukt3">Sajaukt no jauna</button>
+      <span class="statuss" id="statuss3"></span>
+    </div>
+    <div class="pāru-lauks">
+      <div class="kolonna"><h3>Darbarīki</h3><div class="saraksts" id="rīki3"></div></div>
+      <div class="kolonna"><h3>Profesijas</h3><div class="saraksts" id="prof3"></div></div>
+    </div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — darbarīks stāsta par darbu</summary>
+      <div class="k-saturs">
+        <b>Prasme: saskatīt darba saturu.</b> Pēc darbarīka var noprast, ko cilvēks dara: vai viņš strādā ar rokām, ar mašīnu, ar cilvēkiem vai ar informāciju. Mūsdienās daudzās profesijās galvenais darbarīks ir dators, bet tas nenozīmē, ka darbi ir vienādi — atšķiras tas, ko cilvēks ar to dara.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 4. KUR STRĀDĀ ===================== -->
+  <section class="skats" id="s4" role="tabpanel">
+    <h2>Kur strādā?</h2>
+    <p class="pamāc">Izvēlies profesiju un tad darba vietu. Uzmanies — dažas profesijas der vairākām vietām.</p>
+    <div class="rīki nedrukāt">
+      <button class="poga klusa" id="notīrīt4">Sākt no sākuma</button>
+      <span class="statuss" id="statuss4"></span>
+    </div>
+    <div class="vietu-lauks">
+      <div class="čipi" id="čipi4"></div>
+      <div class="vietas" id="vietas4"></div>
+    </div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — viena profesija, daudzas darba vietas</summary>
+      <div class="k-saturs">
+        <b>Prasme: saprast, ka darbs nav piesiets vienai vietai.</b> Elektriķis ir vajadzīgs gan skolā, gan slimnīcā, gan teātrī. Pavārs strādā gan restorānā, gan skolā, gan uz kuģa. Tas nozīmē: apgūstot vienu amatu, cilvēks var izvēlēties, kādā vidē strādāt, un vēlāk to arī mainīt.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 5. ĶĒDE ===================== -->
+  <section class="skats" id="s5" role="tabpanel">
+    <h2>Profesiju ķēde</h2>
+    <p class="pamāc">Saliec profesijas pareizā secībā — no pirmā darba līdz brīdim, kad lieta nonāk pie tevis. Ievelc kartīti ciparu lodziņā vai pieskaries vispirms kartītei, tad lodziņam.</p>
+    <div class="ķēdes-izvēle nedrukāt" id="ķēdes-izvēle"></div>
+    <div class="prod-foto" id="prod5"></div>
+    <div class="rīki nedrukāt">
+      <button class="poga" id="pārbaudīt5">Pārbaudīt</button>
+      <button class="poga klusa" id="notīrīt5">Notīrīt</button>
+      <span class="statuss" id="statuss5"></span>
+    </div>
+    <div class="ķēde" id="ķēde5"></div>
+    <div class="ķēdes-kartītes" id="kartītes5"></div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — neviens nestrādā viens</summary>
+      <div class="k-saturs">
+        <b>Prasme: redzēt sadarbību.</b> Viens maizes klaips vai viens T-krekls nonāk pie mums caur daudzu cilvēku rokām. Ja kāds ķēdē savu darbu nepadara vai padara slikti, cieš visi pārējie. Tāpat ir klasē, grupu darbā un vēlāk komandā darbā.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 6. MĪKLAS ===================== -->
+  <section class="skats" id="s6" role="tabpanel">
+    <h2>Kas es esmu?</h2>
+    <p class="pamāc">Klases spēle. Skolotājs atklāj pavedienus pa vienam — kurš uzmin ātrāk?</p>
+    <div class="mīklas-lauks">
+      <div class="pavedieni" id="pavedieni6"></div>
+      <div>
+        <div class="atbilde-kaste">
+          <div class="mīklas-skaitītājs" id="skaitītājs6"></div>
+          <div class="a" id="atbilde6">?</div>
+          <div id="foto6"></div>
+        </div>
+        <div class="rīki nedrukāt">
+          <button class="poga" id="pavediens6">Nākamais pavediens</button>
+          <button class="poga oranža" id="atklāt6">Atklāt atbildi</button>
+          <button class="poga klusa" id="nākamā6">Nākamā mīkla</button>
+        </div>
+      </div>
+    </div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — jautāt, nevis minēt</summary>
+      <div class="k-saturs">
+        <b>Prasme: uzdot jautājumus.</b> Mīklas mudina domāt pēc pazīmēm: kur strādā, ar ko strādā, kam palīdz. Tieši tā pieaugušie iepazīst nepazīstamu profesiju — uzdodot jautājumus cilvēkam, kurš to dara. To pašu skolēni darīs Ēnu dienā.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 7. MANA IZVĒLE ===================== -->
+  <section class="skats" id="s7" role="tabpanel">
+    <h2>Mana izvēle</h2>
+    <p class="pamāc">Izvēlies trīs profesijas, kas tev šķiet interesantas. Rīks parādīs, kurās darbu grupās tās ietilpst un kuru prasmi vari trenēt jau tagad.</p>
+    <div class="izvēles-lauks">
+      <div class="izvēles-kartes" id="izvēle7"></div>
+      <div>
+        <div class="kopsav" id="kopsav7"></div>
+        <div class="skolēni nedrukāt">
+          <div class="iniciāļi" id="iniciāļi7"></div>
+          <input type="text" id="vārds7" placeholder="Skolēna vārds" maxlength="20">
+          <div class="rīki">
+            <button class="poga" id="saglabāt7">Saglabāt skolēnam</button>
+            <button class="poga klusa" id="jauns7">Jauns skolēns</button>
+            <button class="poga klusa" id="drukāt7">Drukāt klasei</button>
+          </div>
+          <p class="mīklas-skaitītājs">Dati saglabājas tikai līdz lapas aizvēršanai.</p>
+        </div>
+      </div>
+    </div>
+    <details class="karjera">
+      <summary>Karjeras izglītība — no intereses uz prasmi</summary>
+      <div class="k-saturs">
+        <b>Prasme: saistīt sapni ar rīcību.</b> Sākumskolā profesijas izvēle mainās katru mēnesi, un tas ir normāli. Vērtīgais ir cits: aiz katras izvēlētās profesijas stāv prasme, ko var trenēt jau šodien — precizitāte, drosme runāt, pacietība, kārtīgums. Prasme paliek, arī ja sapnis mainās.
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== 8. PAŠPĀRBAUDE ===================== -->
+  <section class="skats" id="s8" role="tabpanel">
+    <h2>Pašpārbaude</h2>
+    <p class="pamāc">Desmit jautājumi. Pēc atbildes parādīsies paskaidrojums.</p>
+    <div class="rīki nedrukāt">
+      <button class="poga" id="jauni8">Jauni jautājumi</button>
+      <span class="punkti" id="punkti8"></span>
+    </div>
+    <div class="jautājumi" id="jautājumi8"></div>
+  </section>
+
+  <div class="druka" id="druka"></div>
+</div>
+
+<div class="logs" id="logs" role="dialog" aria-modal="true" aria-labelledby="loga-nos">
+  <div class="loga-saturs" id="loga-saturs"></div>
+</div>
+
+<script>
+"use strict";
+const q = s => document.querySelector(s);
+const qq = s => Array.from(document.querySelectorAll(s));
+const jaukt = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+const ikona = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
+
+/* ================= DATI: JOMAS ================= */
+const JOMAS = {
+  cc:{nos:'Cilvēks – cilvēks', ik:'i-cilvēks', piem:'Skolotājs, ārsts, pārdevējs, ugunsdzēsējs u. c.',
+      skaidr:'Šie cilvēki visu dienu ir kopā ar citiem cilvēkiem — māca, ārstē, palīdz un pārdod.',
+      k:'Šajā grupā vissvarīgākā prasme ir sarunāties un saprast otru. To trenē katrā grupu darbā, kad skolēns paskaidro savu domu un uzklausa klasesbiedru.'},
+  ct:{nos:'Cilvēks – tehnika', ik:'i-uzgrieznis', piem:'Būvnieks, mehāniķis, pilots, galdnieks u. c.',
+      skaidr:'Šie cilvēki strādā ar mašīnām, rīkiem un materiāliem — būvē, remontē un vada.',
+      k:'Šeit vajadzīga precizitāte un drošības noteikumu ievērošana. Latvijā tieši šajās profesijās trūkst darbinieku, un tās apgūst profesionālajās vidusskolās.'},
+  cd:{nos:'Cilvēks – daba', ik:'i-augs', piem:'Zemnieks, veterinārārsts, mežsargs, biškopis u. c.',
+      skaidr:'Šie cilvēki strādā ar augiem, dzīvniekiem un dabu.',
+      k:'Šo darbu ritmu nosaka gadalaiki, nevis darba grafiks. Tā ir laba saruna par to, ka ne visas profesijas strādā no plkst. 9 līdz 17.'},
+  cm:{nos:'Cilvēks – māksla', ik:'i-palete', piem:'Mākslinieks, mūziķis, aktieris, konditors u. c.',
+      skaidr:'Šie cilvēki rada kaut ko jaunu un skaistu — attēlus, skaņas, garšas un lomas.',
+      k:'Radošs darbs nav tikai iedvesma. Aiz katra skaista rezultāta ir daudz mēģinājumu un labošanas — tāpat kā mājas darbos.'},
+  cz:{nos:'Cilvēks – zīmes', ik:'i-kods', piem:'Programmētājs, grāmatvedis, tulks, žurnālists u. c.',
+      skaidr:'Šie cilvēki strādā ar skaitļiem, vārdiem un datiem.',
+      k:'Šajā grupā strauji rodas jaunas profesijas. Daļa darbu, ko šodienas 1. klase darīs pieaugusi, vēl nav izdomāti.'}
+};
+
+/* ================= DATI: PROFESIJAS ================= */
+const P = [
+ {n:'Skolotājs',j:'cc',ik:'i-grāmata',ko:'Māca skolēniem lasīt, rēķināt, radīt un domāt.',kur:'Skolā',r:'Tāfele un mācību grāmata',p:'Skaidri izstāstīt'},
+ {n:'Ārsts',j:'cc',ik:'i-stetoskops',ko:'Izmeklē slimniekus un palīdz izveseļoties.',kur:'Slimnīcā vai poliklīnikā',r:'Stetoskops',p:'Uzmanīgi klausīties'},
+ {n:'Medmāsa',j:'cc',ik:'i-medicīna',ko:'Palīdz ārstam, pārsien brūces un dod zāles.',kur:'Slimnīcā',r:'Pārsējs un šļirce',p:'Rūpēties par citiem'},
+ {n:'Pārdevējs',j:'cc',ik:'i-grozs',ko:'Palīdz pircējam atrast un izvēlēties preci.',kur:'Veikalā',r:'Kase',p:'Būt laipnam'},
+ {n:'Policists',j:'cc',ik:'i-vairogs',ko:'Rūpējas par kārtību un cilvēku drošību.',kur:'Uz ielas un iecirknī',r:'Rācija',p:'Saglabāt mieru'},
+ {n:'Ugunsdzēsējs',j:'cc',ik:'i-liesma',ko:'Dzēš ugunsgrēkus un glābj cilvēkus.',kur:'Ugunsdzēsēju depo',r:'Šļūtene',p:'Ātri rīkoties'},
+ {n:'Frizieris',j:'cc',ik:'i-šķēres',ko:'Griež un veido matu sakārtojumu.',kur:'Frizētavā',r:'Šķēres',p:'Precīza roka'},
+ {n:'Treneris',j:'cc',ik:'i-svilpe',ko:'Māca sportot un gatavo sacensībām.',kur:'Sporta zālē',r:'Svilpe',p:'Iedrošināt citus'},
+
+ {n:'Būvnieks',j:'ct',ik:'i-ķieģelis',ko:'Ceļ mājas, skolas un tiltus.',kur:'Būvlaukumā',r:'Mūrēšanas lāpstiņa',p:'Strādāt komandā'},
+ {n:'Automehāniķis',j:'ct',ik:'i-uzgrieznis',ko:'Atrod un salabo automašīnas bojājumus.',kur:'Autoservisā',r:'Uzgriežņu atslēga',p:'Atrast kļūdas cēloni'},
+ {n:'Elektriķis',j:'ct',ik:'i-zibens',ko:'Ievelk vadus, lai ēkā deg gaisma.',kur:'Visās ēkās',r:'Kniebles',p:'Ievērot drošību'},
+ {n:'Pilots',j:'ct',ik:'i-lidmašīna',ko:'Vada lidmašīnu un ved pasažierus.',kur:'Lidostā',r:'Vadības stūre',p:'Saglabāt mieru'},
+ {n:'Mašīnists',j:'ct',ik:'i-vilciens',ko:'Vada vilcienu pa dzelzceļu.',kur:'Uz dzelzceļa',r:'Vadības pults',p:'Ievērot laiku'},
+ {n:'Dronu operators',j:'ct',ik:'i-drons',ko:'Vada dronu un filmē no augšas.',kur:'Laukā un pilsētā',r:'Drons',p:'Labi novērtēt attālumu'},
+ {n:'Galdnieks',j:'ct',ik:'i-zāģis',ko:'Taisa mēbeles un lietas no koka.',kur:'Kokapstrādes darbnīcā',r:'Zāģis',p:'Precīzi mērīt'},
+ {n:'Celtņa operators',j:'ct',ik:'i-celtnis',ko:'Ar celtni paceļ smagas kravas.',kur:'Būvlaukumā',r:'Celtnis',p:'Nesteigties'},
+
+ {n:'Veterinārārsts',j:'cd',ik:'i-ķepa',ko:'Ārstē kaķus, suņus un lauku dzīvniekus.',kur:'Dzīvnieku klīnikā',r:'Termometrs',p:'Būt pacietīgam'},
+ {n:'Dārznieks',j:'cd',ik:'i-augs',ko:'Audzē un kopj puķes, krūmus un kokus.',kur:'Dārzā un siltumnīcā',r:'Lāpsta',p:'Rūpēties katru dienu'},
+ {n:'Zemnieks',j:'cd',ik:'i-traktors',ko:'Audzē labību, dārzeņus un lopus.',kur:'Laukos',r:'Traktors',p:'Celties agri'},
+ {n:'Mežsargs',j:'cd',ik:'i-koks',ko:'Pieskata mežu un tā dzīvniekus.',kur:'Mežā',r:'Binoklis',p:'Pazīt dabu'},
+ {n:'Biologs',j:'cd',ik:'i-mikroskops',ko:'Pēta augus un dzīvniekus.',kur:'Laboratorijā un dabā',r:'Mikroskops',p:'Vērot un pierakstīt'},
+ {n:'Zvejnieks',j:'cd',ik:'i-zivs',ko:'Zvejo zivis jūrā un ezeros.',kur:'Uz kuģa',r:'Tīkls',p:'Būt izturīgam'},
+ {n:'Biškopis',j:'cd',ik:'i-bite',ko:'Kopj bites un vāc medu.',kur:'Dravā',r:'Dūmeklis',p:'Strādāt mierīgi'},
+ {n:'Ekologs',j:'cd',ik:'i-lapa',ko:'Rūpējas par tīru gaisu, ūdeni un dabu.',kur:'Dabā un birojā',r:'Ūdens paraugu trauki',p:'Domāt par nākotni'},
+
+ {n:'Mākslinieks',j:'cm',ik:'i-ota',ko:'Glezno gleznas un zīmē ilustrācijas.',kur:'Darbnīcā',r:'Ota un krāsas',p:'Izdomāt ko jaunu'},
+ {n:'Mūziķis',j:'cm',ik:'i-nots',ko:'Spēlē un raksta mūziku.',kur:'Koncertzālē',r:'Mūzikas instruments',p:'Ieklausīties skaņās'},
+ {n:'Aktieris',j:'cm',ik:'i-maska',ko:'Spēlē lomas izrādēs un filmās.',kur:'Teātrī',r:'Kostīms',p:'Iejusties citā cilvēkā'},
+ {n:'Dizainers',j:'cm',ik:'i-kvadrāti',ko:'Izdomā, kā lieta izskatīsies un darbosies.',kur:'Birojā',r:'Dators',p:'Pamanīt sīkumus'},
+ {n:'Fotogrāfs',j:'cm',ik:'i-kamera',ko:'Fotografē cilvēkus, dabu un notikumus.',kur:'Studijā un ārpus tās',r:'Fotoaparāts',p:'Pamanīt mirkli'},
+ {n:'Konditors',j:'cm',ik:'i-kūka',ko:'Cep kūkas, maizītes un konfektes.',kur:'Ceptuvē',r:'Mikseris',p:'Strādāt tīri un precīzi'},
+ {n:'Modes mākslinieks',j:'cm',ik:'i-adata',ko:'Izdomā un šuj apģērbu.',kur:'Šūšanas darbnīcā',r:'Šujmašīna',p:'Mērīt un piegriezt'},
+ {n:'Arhitekts',j:'cm',ik:'i-māja',ko:'Uzzīmē māju, pirms to sāk celt.',kur:'Birojā',r:'Rasējums',p:'Iedomāties telpu'},
+
+ {n:'Grāmatvedis',j:'cz',ik:'i-kalkulators',ko:'Skaita naudu un raksta atskaites.',kur:'Birojā',r:'Kalkulators',p:'Nekļūdīties skaitļos'},
+ {n:'Programmētājs',j:'cz',ik:'i-kods',ko:'Raksta programmas datoriem un lietotnēm.',kur:'Birojā vai mājās',r:'Dators',p:'Risināt soli pa solim'},
+ {n:'Datu analītiķis',j:'cz',ik:'i-diagramma',ko:'Meklē likumsakarības lielos skaitļu apjomos.',kur:'Birojā',r:'Diagrammas',p:'Pamanīt sakarības'},
+ {n:'Bibliotekārs',j:'cz',ik:'i-plaukts',ko:'Kārto grāmatas un iesaka, ko lasīt.',kur:'Bibliotēkā',r:'Grāmatu katalogs',p:'Būt kārtīgam'},
+ {n:'Žurnālists',j:'cz',ik:'i-mikrofons',ko:'Uzzina jaunumus un pastāsta tos citiem.',kur:'Redakcijā un notikuma vietā',r:'Mikrofons',p:'Uzdot labus jautājumus'},
+ {n:'Tulks',j:'cz',ik:'i-globuss',ko:'Pārtulko runu vai tekstu citā valodā.',kur:'Sanāksmēs',r:'Vārdnīca',p:'Zināt valodas'},
+ {n:'Kiberdrošības speciālists',j:'cz',ik:'i-slēdzene',ko:'Sargā datorus un datus no zagļiem.',kur:'Birojā',r:'Dators',p:'Būt vērīgam'},
+ {n:'Kartogrāfs',j:'cz',ik:'i-karte',ko:'Zīmē kartes un plānus.',kur:'Birojā',r:'Karte',p:'Precīzi mērīt'}
+];
+const atrast = n => P.find(x=>x.n===n);
+
+/* ================= FOTOGRĀFIJAS =================
+   Atslēga → fotogrāfijas interneta adrese. Tukša virkne nozīmē, ka
+   fotogrāfija vēl nav pievienota — tad rīks rāda tikai zīmējumu.
+   Adreses drīkst aizvietot ar citām; nekas cits kodā nav jāmaina. */
+const ATTĒLI = {"Skolotājs": "att/skolotajs.jpg","Ārsts": "att/arsts.jpg","Medmāsa": "att/medmasa.jpg","Pārdevējs": "att/pardevejs.jpg","Policists": "att/policists.jpg","Ugunsdzēsējs": "att/ugunsdzesejs.jpg","Frizieris": "att/frizieris.jpg","Treneris": "att/treneris.jpg","Būvnieks": "att/buvnieks.jpg","Automehāniķis": "att/automehanikis.jpg","Elektriķis": "att/elektrikis.jpg","Pilots": "att/pilots.jpg","Mašīnists": "att/masinists.jpg","Dronu operators": "att/dronu-operators.jpg","Galdnieks": "att/galdnieks.jpg","Celtņa operators": "att/celtna-operators.jpg","Veterinārārsts": "att/veterinararsts.jpg","Dārznieks": "att/darznieks.jpg","Zemnieks": "att/zemnieks.jpg","Mežsargs": "att/mezsargs.jpg","Biologs": "att/biologs.jpg","Zvejnieks": "att/zvejnieks.jpg","Biškopis": "att/biskopis.jpg","Ekologs": "att/ekologs.jpg","Mākslinieks": "att/makslinieks.jpg","Mūziķis": "att/muzikis.jpg","Aktieris": "att/aktieris.jpg","Dizainers": "att/dizainers.jpg","Fotogrāfs": "att/fotografs.jpg","Konditors": "att/konditors.jpg","Modes mākslinieks": "att/modes-makslinieks.jpg","Arhitekts": "att/arhitekts.jpg","Grāmatvedis": "att/gramatvedis.jpg","Programmētājs": "att/programmetajs.jpg","Datu analītiķis": "att/datu-analitikis.jpg","Bibliotekārs": "att/bibliotekars.jpg","Žurnālists": "att/zurnalists.jpg","Tulks": "att/tulks.jpg","Kiberdrošības speciālists": "att/kiberdrosibas-specialists.jpg","Kartogrāfs": "att/kartografs.jpg","prod-maize": "att/prod-maize.jpg","prod-krekls": "att/prod-krekls.jpg","prod-krēsls": "att/prod-kresls.jpg","prod-grāmata": "att/prod-gramata.jpg","prod-piens": "att/prod-piens.jpg","m1": "att/m1.jpg","m2": "att/m2.jpg","m3": "att/m3.jpg","m4": "att/m4.jpg","m5": "att/m5.jpg","m6": "att/m6.jpg","m7": "att/m7.jpg","k1": "att/k1.jpg","k2": "att/k2.jpg","k3": "att/k3.jpg","k4": "att/k4.jpg","k5": "att/k5.jpg","k6": "att/k6.jpg","k7": "att/k7.jpg","kr1": "att/kr1.jpg","kr2": "att/kr2.jpg","kr3": "att/kr3.jpg","kr4": "att/kr4.jpg","kr5": "att/kr5.jpg","kr6": "att/kr6.jpg","kr7": "att/kr7.jpg","g1": "att/g1.jpg","g2": "att/g2.jpg","g3": "att/g3.jpg","g4": "att/g4.jpg","g5": "att/g5.jpg","g6": "att/g6.jpg","g7": "att/g7.jpg","p1": "att/p1.jpg","p2": "att/p2.jpg","p3": "att/p3.jpg","p4": "att/p4.jpg","p5": "att/p5.jpg","p6": "att/p6.jpg","p7": "att/p7.jpg"};
+function foto(atslēga, apraksts){
+  const u = ATTĒLI[atslēga];
+  return u ? `<img class="foto" src="${u}" alt="${apraksts||atslēga}" loading="lazy">` : '';
+}
+
+/* ================= CILNES ================= */
+qq('.cilnes button').forEach(b=>{
+  b.onclick = ()=>{
+    qq('.cilnes button').forEach(x=>x.setAttribute('aria-selected', x===b));
+    qq('.skats').forEach(s=>s.classList.toggle('aktīvs', s.id===b.dataset.skats));
+  };
+});
+
+/* ================= LOGS ================= */
+const logs = q('#logs');
+function atvērtLogu(html, joma){
+  const s = q('#loga-saturs');
+  s.className = 'loga-saturs j-'+joma;
+  s.innerHTML = html + '<div class="rīki"><button class="poga" id="aizvērt">Aizvērt</button></div>';
+  logs.classList.add('redzams');
+  q('#aizvērt').onclick = ()=>logs.classList.remove('redzams');
+  q('#aizvērt').focus();
+}
+logs.onclick = e => { if(e.target===logs) logs.classList.remove('redzams'); };
+document.addEventListener('keydown', e => { if(e.key==='Escape') logs.classList.remove('redzams'); });
+
+/* ================= 1. IEVADS ================= */
+q('#flīzes').innerHTML = Object.entries(JOMAS).map(([k,j])=>`
+  <div class="flīze j-${k}">
+    <button class="ikona" data-j="${k}" aria-label="Paskaidrojums: ${j.nos}">${ikona(j.ik)}</button>
+    <h3>${j.nos}</h3>
+    <p id="fl-${k}">${j.piem}</p>
+    <button class="k" data-k="${k}">K</button>
+  </div>`).join('');
+qq('.flīze .ikona').forEach(b=>{
+  b.onclick = ()=>{
+    const k=b.dataset.j, p=q('#fl-'+k);
+    const rāda = p.dataset.r==='1';
+    p.textContent = rāda ? JOMAS[k].piem : JOMAS[k].skaidr;
+    p.dataset.r = rāda ? '' : '1';
+  };
+});
+qq('.flīze .k').forEach(b=>{
+  b.onclick = ()=>{
+    const k=b.dataset.k, j=JOMAS[k];
+    atvērtLogu(`<div class="galvene">${ikona(j.ik)}<div><h3 id="loga-nos">${j.nos}</h3>
+      <div class="joma">Karjeras izglītība skolotājam</div></div></div>
+      <p style="font-size:17px;line-height:1.5">${j.skaidr}</p>
+      <p style="font-size:17px;line-height:1.5">${j.k}</p>`, k);
+  };
+});
+
+/* ================= 2. KARTOTĒKA ================= */
+let filtrs = 'cc';
+q('#filtrs').innerHTML = Object.entries(JOMAS).map(([k,j])=>
+  `<button class="j-${k}" data-f="${k}" aria-pressed="${k===filtrs}">${j.nos}</button>`).join('')
+  + `<button data-f="visi" aria-pressed="false">Visas 40</button>`;
+const PIEZĪMES = {};
+let audekls=null, konteksts=null, zīmē=false, krāsa='#1F4E79', gumija=false, ppn=null;
+
+function zīmētKartes(){
+  const saraksts = filtrs==='visi' ? P : P.filter(x=>x.j===filtrs);
+  q('#kartes').innerHTML = saraksts.map(x=>
+    `<button class="kartīte j-${x.j}" data-n="${x.n}">${ikona(x.ik)}<span class="n">${x.n}</span></button>`).join('');
+  qq('#kartes .kartīte').forEach(b=> b.onclick = ()=> atvērtProfesiju(b.dataset.n));
+}
+
+function atvērtProfesiju(n){
+  const x = atrast(n);
+  atvērtLogu(`<div class="galvene">${ikona(x.ik)}<div><h3 id="loga-nos">${x.n}</h3>
+      <div class="joma">${JOMAS[x.j].nos}</div></div></div>
+    ${foto(x.n, x.n + ' darbā')}
+    <div class="rindas">
+      <div class="rinda"><span>Ko dara</span><b>${x.ko}</b></div>
+      <div class="rinda"><span>Kur strādā</span><b>${x.kur}</b></div>
+      <div class="rinda"><span>Ar ko strādā</span><b>${x.r}</b></div>
+      <div class="rinda"><span>Kas jāprot</span><b>${x.p}</b></div>
+    </div>
+    <div class="piezīmju-kaste">
+      <div class="pk-galva">
+        <b>Ko vēl mēs zinām par šo profesiju?</b>
+        <div class="zīm-rīki">
+          <button class="krāsa" data-krāsa="#1F4E79" style="background:#1F4E79" aria-pressed="true" aria-label="Tumši zils"></button>
+          <button class="krāsa" data-krāsa="#C75000" style="background:#C75000" aria-pressed="false" aria-label="Oranžs"></button>
+          <button class="krāsa" data-krāsa="#2E7D32" style="background:#2E7D32" aria-pressed="false" aria-label="Zaļš"></button>
+          <button id="gumija" aria-pressed="false">Dzēšgumija</button>
+          <button id="notīrītZīm">Notīrīt</button>
+        </div>
+      </div>
+      <canvas class="audekls" id="audekls" width="1120" height="380"
+        aria-label="Zīmēšanas laukums piezīmēm"></canvas>
+      <p class="pk-piez">Raksti vai zīmē ar pirkstu, pildspalvu vai peli. Piezīmes saglabājas pie šīs profesijas, kamēr lapa ir atvērta.</p>
+    </div>`, x.j);
+  sagatavotAudeklu(x.n);
+}
+
+function sagatavotAudeklu(n){
+  ppn = n;
+  audekls = q('#audekls');
+  konteksts = audekls.getContext('2d');
+  konteksts.lineCap='round'; konteksts.lineJoin='round';
+  if(PIEZĪMES[n]){
+    const a = new Image();
+    a.onload = ()=> konteksts.drawImage(a,0,0);
+    a.src = PIEZĪMES[n];
+  }
+  const punkts = e => {
+    const r = audekls.getBoundingClientRect();
+    return [(e.clientX-r.left)*audekls.width/r.width, (e.clientY-r.top)*audekls.height/r.height];
+  };
+  audekls.addEventListener('pointerdown', e=>{
+    audekls.setPointerCapture(e.pointerId); zīmē=true;
+    konteksts.beginPath(); konteksts.moveTo(...punkts(e));
+  });
+  audekls.addEventListener('pointermove', e=>{
+    if(!zīmē) return;
+    konteksts.strokeStyle = gumija ? '#ffffff' : krāsa;
+    konteksts.lineWidth = gumija ? 34 : 5;
+    konteksts.lineTo(...punkts(e)); konteksts.stroke();
+  });
+  const beigt = ()=>{ if(!zīmē) return; zīmē=false; PIEZĪMES[ppn] = audekls.toDataURL('image/png'); };
+  audekls.addEventListener('pointerup', beigt);
+  audekls.addEventListener('pointerleave', beigt);
+  qq('.krāsa').forEach(b=> b.onclick = ()=>{
+    krāsa = b.dataset.krāsa; gumija=false;
+    qq('.krāsa').forEach(x=>x.setAttribute('aria-pressed', x===b));
+    q('#gumija').setAttribute('aria-pressed','false');
+  });
+  q('#gumija').onclick = ()=>{
+    gumija = !gumija;
+    q('#gumija').setAttribute('aria-pressed', gumija);
+  };
+  q('#notīrītZīm').onclick = ()=>{
+    konteksts.clearRect(0,0,audekls.width,audekls.height);
+    delete PIEZĪMES[ppn];
+  };
+}
+
+q('#pdf2').onclick = ()=>{
+  const nosaukumi = Object.keys(PIEZĪMES);
+  if(nosaukumi.length===0){
+    q('#statuss2').textContent = 'Piezīmju vēl nav. Atver profesijas kartīti un ieraksti, ko klase zina.';
+    return;
+  }
+  q('#statuss2').textContent = '';
+  q('#druka').innerHTML = nosaukumi.map(n=>{
+    const x = atrast(n);
+    return `<div class="drukas-lapa">
+      <h2>${x.n}</h2>
+      <p>Jaunmārupes pamatskola · profesiju kartotēkas piezīmes</p>
+      <p><b>Ko dara:</b> ${x.ko}<br><b>Kur strādā:</b> ${x.kur}<br>
+         <b>Ar ko strādā:</b> ${x.r}<br><b>Kas jāprot:</b> ${x.p}</p>
+      <p><b>Ko vēl mēs zinām par šo profesiju:</b></p>
+      <img src="${PIEZĪMES[n]}" style="width:100%;border:1px solid #999;border-radius:8px">
+    </div>`;
+  }).join('');
+  window.print();
+};
+
+qq('#filtrs button').forEach(b=>{
+  b.onclick = ()=>{ filtrs=b.dataset.f;
+    qq('#filtrs button').forEach(x=>x.setAttribute('aria-pressed', x===b));
+    zīmētKartes(); };
+});
+zīmētKartes();
+
+/* ================= 3. DARBARĪKI ================= */
+const PĀRI = [
+ ['Šķēres','Frizieris','i-šķēres'],['Stetoskops','Ārsts','i-stetoskops'],['Zāģis','Galdnieks','i-zāģis'],
+ ['Ota un krāsas','Mākslinieks','i-ota'],['Traktors','Zemnieks','i-traktors'],['Mikrofons','Žurnālists','i-mikrofons'],
+ ['Kalkulators','Grāmatvedis','i-kalkulators'],['Mikroskops','Biologs','i-mikroskops'],['Šļūtene','Ugunsdzēsējs','i-liesma'],
+ ['Mikseris','Konditors','i-kūka'],['Drons','Dronu operators','i-drons'],['Rasējums','Arhitekts','i-māja']
+];
+let izv3 = null, atrisināti3 = 0;
+function zīmēt3(){
+  izv3=null; atrisināti3=0;
+  q('#statuss3').textContent='';
+  q('#rīki3').innerHTML = jaukt(PĀRI).map(p=>
+    `<button class="vienība" draggable="true" data-p="${p[1]}">${ikona(p[2])}<span>${p[0]}</span></button>`).join('');
+  q('#prof3').innerHTML = jaukt(PĀRI).map(p=>
+    `<button class="vienība" data-n="${p[1]}"><span>${p[1]}</span></button>`).join('');
+  qq('#rīki3 .vienība').forEach(b=>{
+    b.onclick = ()=>{
+      if(b.classList.contains('pareizi')) return;
+      qq('#rīki3 .vienība').forEach(x=>x.classList.remove('izvēlēts'));
+      b.classList.add('izvēlēts'); izv3=b;
+      q('#statuss3').textContent='Tagad izvēlies profesiju.';
+    };
+    b.addEventListener('dragstart', e=>{
+      if(b.classList.contains('pareizi')){ e.preventDefault(); return; }
+      izv3 = b;
+      e.dataTransfer.setData('text/plain', b.dataset.p);
+      e.dataTransfer.effectAllowed = 'move';
+      qq('#prof3 .vienība:not(.pareizi)').forEach(x=>x.classList.add('mērķis'));
+    });
+    b.addEventListener('dragend', ()=> qq('#prof3 .vienība').forEach(x=>x.classList.remove('mērķis','pārvelk')));
+  });
+  qq('#prof3 .vienība').forEach(b=>{
+    b.onclick = ()=>{
+      if(!izv3){ q('#statuss3').textContent='Vispirms izvēlies darbarīku.'; return; }
+      pārbaudīt3(izv3, b);
+    };
+    b.addEventListener('dragover', e=>{ e.preventDefault(); b.classList.add('pārvelk'); });
+    b.addEventListener('dragleave', ()=> b.classList.remove('pārvelk'));
+    b.addEventListener('drop', e=>{
+      e.preventDefault(); b.classList.remove('pārvelk');
+      const p = e.dataTransfer.getData('text/plain');
+      const rīks = p ? q(`#rīki3 .vienība[data-p="${p}"]`) : izv3;
+      if(rīks) pārbaudīt3(rīks, b);
+    });
+  });
+}
+
+function pārbaudīt3(rīks, mērķis){
+  if(mērķis.classList.contains('pareizi') || rīks.classList.contains('pareizi')) return;
+  if(rīks.dataset.p === mērķis.dataset.n){
+    rīks.classList.remove('izvēlēts'); rīks.classList.add('pareizi'); rīks.draggable = false;
+    mērķis.classList.add('pareizi');
+    qq('#prof3 .vienība').forEach(x=>x.classList.remove('mērķis'));
+    atrisināti3++; izv3 = null;
+    q('#statuss3').textContent = atrisināti3===PĀRI.length
+      ? 'Visi pāri atrasti. Lieliski!' : `Pareizi! Atrasti ${atrisināti3} no ${PĀRI.length}.`;
+  } else {
+    mērķis.classList.add('nepareizi');
+    setTimeout(()=>mērķis.classList.remove('nepareizi'), 500);
+    q('#statuss3').textContent = 'Vēl ne. Padomā, kur šo rīku lieto katru dienu.';
+  }
+}
+q('#jaukt3').onclick = zīmēt3;
+zīmēt3();
+
+/* ================= 4. KUR STRĀDĀ ================= */
+const VIETAS = [
+ {k:'skola',n:'Skola',ik:'i-skola'},{k:'slimnīca',n:'Slimnīca',ik:'i-slimnīca'},
+ {k:'sēta',n:'Lauku sēta',ik:'i-sēta'},{k:'būve',n:'Būvlaukums',ik:'i-būve'},
+ {k:'teātris',n:'Teātris',ik:'i-teātris'},{k:'veikals',n:'Veikals',ik:'i-veikals'}
+];
+const DARBINIEKI = [
+ {n:'Skolotājs',v:['skola']},{n:'Bibliotekārs',v:['skola']},{n:'Treneris',v:['skola']},
+ {n:'Ārsts',v:['slimnīca']},{n:'Medmāsa',v:['slimnīca']},{n:'Fizioterapeits',v:['slimnīca']},
+ {n:'Zemnieks',v:['sēta']},{n:'Biškopis',v:['sēta']},{n:'Veterinārārsts',v:['sēta']},
+ {n:'Būvnieks',v:['būve']},{n:'Celtņa operators',v:['būve']},{n:'Arhitekts',v:['būve']},
+ {n:'Aktieris',v:['teātris']},{n:'Mūziķis',v:['teātris']},{n:'Modes mākslinieks',v:['teātris']},
+ {n:'Pārdevējs',v:['veikals']},{n:'Konditors',v:['veikals']},
+ {n:'Elektriķis',v:['skola','slimnīca','sēta','būve','teātris','veikals']}
+];
+let stāvoklis4 = {}, izv4 = null;
+function zīmēt4(){
+  izv4 = null;
+  stāvoklis4 = {};
+  DARBINIEKI.forEach(d => stāvoklis4[d.n] = d.v.slice());
+  q('#čipi4').innerHTML = jaukt(DARBINIEKI).map(d=>{
+    const x = atrast(d.n);
+    return `<button class="čips j-${x?x.j:'cc'}" draggable="true" data-n="${d.n}">${d.n}</button>`;
+  }).join('');
+  q('#vietas4').innerHTML = VIETAS.map(v=>
+    `<div class="vieta" data-v="${v.k}"><h4>${ikona(v.ik)}${v.n}</h4><div class="saturs" id="v-${v.k}"></div></div>`).join('');
+  q('#statuss4').textContent = 'Ievelc profesiju darba vietā vai pieskaries vispirms profesijai, tad vietai.';
+
+  qq('#čipi4 .čips').forEach(b=>{
+    b.onclick = ()=>{
+      qq('#čipi4 .čips').forEach(x=>x.classList.remove('izvēlēts'));
+      b.classList.add('izvēlēts'); izv4 = b.dataset.n;
+      qq('#vietas4 .vieta').forEach(v=>v.classList.add('mērķis'));
+      q('#statuss4').textContent = 'Tagad izvēlies darba vietu.';
+    };
+    b.addEventListener('dragstart', e=>{
+      izv4 = b.dataset.n;
+      e.dataTransfer.setData('text/plain', b.dataset.n);
+      e.dataTransfer.effectAllowed = 'move';
+      qq('#vietas4 .vieta').forEach(v=>v.classList.add('mērķis'));
+    });
+    b.addEventListener('dragend', ()=>{
+      qq('#vietas4 .vieta').forEach(v=>v.classList.remove('mērķis','pārvelk'));
+    });
+  });
+
+  qq('#vietas4 .vieta').forEach(v=>{
+    v.onclick = ()=>{
+      if(!izv4){ q('#statuss4').textContent = 'Vispirms izvēlies profesiju.'; return; }
+      novietot(izv4, v.dataset.v);
+    };
+    v.addEventListener('dragover', e=>{ e.preventDefault(); v.classList.add('pārvelk'); });
+    v.addEventListener('dragleave', ()=> v.classList.remove('pārvelk'));
+    v.addEventListener('drop', e=>{
+      e.preventDefault(); v.classList.remove('pārvelk');
+      const n = e.dataTransfer.getData('text/plain') || izv4;
+      if(n) novietot(n, v.dataset.v);
+    });
+  });
+}
+
+function novietot(n, vk){
+  const atl = stāvoklis4[n];
+  if(!atl || atl.length===0) return;
+  const čips = q(`#čipi4 .čips[data-n="${n}"]`);
+  const x = atrast(n), j = x ? x.j : 'cc';
+  if(atl.includes(vk)){
+    atl.splice(atl.indexOf(vk), 1);
+    q('#v-'+vk).insertAdjacentHTML('beforeend', `<span class="mazčips j-${j}">${n}</span>`);
+    if(atl.length===0){
+      čips.classList.add('izlietots'); čips.classList.remove('izvēlēts'); izv4 = null;
+      qq('#vietas4 .vieta').forEach(y=>y.classList.remove('mērķis'));
+      atjaunot4('Pareizi!');
+    } else {
+      atjaunot4('Pareizi! Šis cilvēks strādā arī citur — meklē tālāk.');
+    }
+  } else {
+    atjaunot4('Šis cilvēks šeit nestrādā. Padomā vēlreiz.');
+  }
+}
+
+function atjaunot4(ziņa){
+  const atlikuši = Object.values(stāvoklis4).reduce((s,a)=>s+a.length,0);
+  if(atlikuši===0){ q('#statuss4').textContent = 'Visas profesijas ir savās vietās. Lieliski!'; return; }
+  if(ziņa) q('#statuss4').textContent = ziņa + ` Vēl jāizvieto: ${atlikuši}.`;
+}
+q('#notīrīt4').onclick = zīmēt4;
+zīmēt4();
+
+/* ================= 5. ĶĒDE ================= */
+const ĶĒDES = {
+  maize:{n:'Maizes klaips', f:'prod-maize',
+    apr:'Vienā maizes klaipā ir paslēpts septiņu cilvēku darbs.',
+    s:[{t:'Zemnieks izaudzē kviešus',f:'m1'},{t:'Kombainists novāc ražu',f:'m2'},
+       {t:'Dzirnavnieks samaļ miltus',f:'m3'},{t:'Maiznieks izcep maizi',f:'m4'},
+       {t:'Iepakotājs iesaiņo klaipu',f:'m5'},{t:'Autovadītājs aizved uz veikalu',f:'m6'},
+       {t:'Pārdevējs pārdod klaipu',f:'m7'}]},
+  krekls:{n:'T krekls', f:'prod-krekls',
+    apr:'Pirms krekls nonāk veikalā, tam jāizaug, jātop par audumu un jātiek sašūtam.',
+    s:[{t:'Zemnieks izaudzē kokvilnu',f:'k1'},{t:'Vērpējs savērpj dziju',f:'k2'},
+       {t:'Audējs noauž audumu',f:'k3'},{t:'Modes mākslinieks izdomā kreklu',f:'k4'},
+       {t:'Šuvējs sašuj kreklu',f:'k5'},{t:'Autovadītājs aizved uz veikalu',f:'k6'},
+       {t:'Pārdevējs pārdod kreklu',f:'k7'}]},
+  krēsls:{n:'Koka krēsls', f:'prod-krēsls',
+    apr:'Krēsls sākas mežā un beidzas veikala zālē.',
+    s:[{t:'Mežstrādnieks nozāģē koku',f:'kr1'},{t:'Kokvedēja vadītājs aizved baļķus',f:'kr2'},
+       {t:'Kokzāģētavas strādnieks sazāģē dēļus',f:'kr3'},{t:'Dizainers izdomā krēsla formu',f:'kr4'},
+       {t:'Galdnieks saliek krēslu',f:'kr5'},{t:'Krāsotājs nolako krēslu',f:'kr6'},
+       {t:'Pārdevējs pārdod krēslu',f:'kr7'}]},
+  grāmata:{n:'Grāmata', f:'prod-grāmata',
+    apr:'Grāmatu raksta viens cilvēks, bet līdz lasītājam to nogādā vēl seši.',
+    s:[{t:'Rakstnieks uzraksta stāstu',f:'g1'},{t:'Redaktors izlabo kļūdas',f:'g2'},
+       {t:'Ilustrators uzzīmē attēlus',f:'g3'},{t:'Maketētājs saliek lappuses',f:'g4'},
+       {t:'Tipogrāfijas strādnieks izdrukā lappuses',f:'g5'},{t:'Iesējējs iesien grāmatu',f:'g6'},
+       {t:'Bibliotekārs iedod izlasīt',f:'g7'}]},
+  piens:{n:'Piena paka', f:'prod-piens',
+    apr:'No govs līdz brokastu galdam piens paiet garu ceļu.',
+    s:[{t:'Zemnieks kopj govis',f:'p1'},{t:'Slaucējs izslauc pienu',f:'p2'},
+       {t:'Autocisternas vadītājs aizved pienu',f:'p3'},{t:'Piena rūpnīcas strādnieks pārstrādā pienu',f:'p4'},
+       {t:'Iepakotājs iepilda pienu pakās',f:'p5'},{t:'Autovadītājs aizved uz veikalu',f:'p6'},
+       {t:'Pārdevējs pārdod pienu',f:'p7'}]}
+};
+let ķēde = 'maize', sloti = [], izv5 = null;
+q('#ķēdes-izvēle').innerHTML = Object.entries(ĶĒDES).map(([k,c])=>
+  `<button class="poga ${k===ķēde?'':'klusa'}" data-ķ="${k}">${c.n}</button>`).join('');
+
+function zīmēt5(){
+  const c = ĶĒDES[ķēde];
+  sloti = new Array(c.s.length).fill(null); izv5 = null;
+  q('#statuss5').textContent = '';
+  q('#prod5').innerHTML = `${foto(c.f, c.n)}<p><b>${c.n}.</b> ${c.apr}</p>`;
+  q('#ķēde5').innerHTML = c.s.map((_,i)=>
+    `<div class="slots" data-i="${i}"><span class="nr">${i+1}</span><span class="att"></span><span class="v"></span></div>`).join('');
+  q('#kartītes5').innerHTML = jaukt(c.s).map(x=>
+    `<button class="čips j-cd" draggable="true" data-s="${x.t}">${x.t}</button>`).join('');
+  qq('#kartītes5 .čips').forEach(b=>{
+    b.onclick = ()=>{
+      qq('#kartītes5 .čips').forEach(x=>x.classList.remove('izvēlēts'));
+      b.classList.add('izvēlēts'); izv5 = b.dataset.s;
+    };
+    b.addEventListener('dragstart', e=>{
+      if(b.classList.contains('izlietots')){ e.preventDefault(); return; }
+      izv5 = b.dataset.s;
+      e.dataTransfer.setData('text/plain', b.dataset.s);
+      e.dataTransfer.effectAllowed = 'move';
+      qq('#ķēde5 .slots:not(.pilns)').forEach(x=>x.classList.add('mērķis'));
+    });
+    b.addEventListener('dragend', ()=> qq('#ķēde5 .slots').forEach(x=>x.classList.remove('mērķis','pārvelk')));
+  });
+  qq('#ķēde5 .slots').forEach(sl=>{
+    sl.addEventListener('dragover', e=>{ e.preventDefault(); if(!sloti[+sl.dataset.i]) sl.classList.add('pārvelk'); });
+    sl.addEventListener('dragleave', ()=> sl.classList.remove('pārvelk'));
+    sl.addEventListener('drop', e=>{
+      e.preventDefault(); sl.classList.remove('pārvelk');
+      const i = +sl.dataset.i;
+      if(sloti[i]) return;
+      const t = e.dataTransfer.getData('text/plain') || izv5;
+      if(!t) return;
+      izv5 = t; ielikt5(sl, i, c);
+    });
+    sl.onclick = ()=>{
+      const i = +sl.dataset.i;
+      if(sloti[i]){
+        const vecais = sloti[i]; sloti[i] = null;
+        sl.querySelector('.v').textContent = '';
+        sl.querySelector('.att').innerHTML = '';
+        sl.className = 'slots';
+        q(`#kartītes5 .čips[data-s="${vecais}"]`).classList.remove('izlietots');
+        return;
+      }
+      if(!izv5){ q('#statuss5').textContent = 'Vispirms izvēlies kartīti.'; return; }
+      ielikt5(sl, i, c);
+    };
+  });
+}
+
+function ielikt5(sl, i, c){
+  const solis = c.s.find(x=>x.t===izv5);
+  if(!solis) return;
+  sloti[i] = izv5;
+  sl.querySelector('.v').textContent = izv5;
+  const u = ATTĒLI[solis.f];
+  sl.querySelector('.att').innerHTML = u ? `<img src="${u}" alt="${izv5}" loading="lazy">` : '';
+  sl.classList.add('pilns'); sl.classList.remove('mērķis');
+  const č = q(`#kartītes5 .čips[data-s="${izv5}"]`);
+  č.classList.add('izlietots'); č.classList.remove('izvēlēts'); č.draggable = false;
+  izv5 = null;
+  q('#statuss5').textContent = '';
+}
+qq('#ķēdes-izvēle button').forEach(b=>{
+  b.onclick = ()=>{ ķēde = b.dataset.ķ;
+    qq('#ķēdes-izvēle button').forEach(x=>x.classList.toggle('klusa', x!==b));
+    zīmēt5(); };
+});
+q('#notīrīt5').onclick = zīmēt5;
+q('#pārbaudīt5').onclick = ()=>{
+  const c = ĶĒDES[ķēde]; let p = 0;
+  qq('#ķēde5 .slots').forEach((sl,i)=>{
+    sl.classList.remove('pareizi','nepareizi');
+    if(!sloti[i]) return;
+    if(sloti[i] === c.s[i].t){ sl.classList.add('pareizi'); p++; } else sl.classList.add('nepareizi');
+  });
+  q('#statuss5').textContent = p === c.s.length
+    ? 'Visa ķēde ir pareiza! Tik daudz cilvēku strādā pie vienas lietas.'
+    : `Pareizi: ${p} no ${c.s.length}. Sarkanās vietas pārliec vēlreiz.`;
+};
+zīmēt5();
+
+/* ================= 6. MĪKLAS ================= */
+const MĪKLAS = [
+ {a:'Ugunsdzēsējs',p:['Es strādāju komandā, un mums ir liela sarkana mašīna.','Mans galvenais darbarīks ir šļūtene ar ūdeni.','Es braucu turp, kur cilvēkiem draud briesmas.']},
+ {a:'Skolotājs',p:['Es katru dienu tiekos ar vieniem un tiem pašiem bērniem.','Man ir tāfele un daudz burtnīcu.','Es prasu mājas darbus.']},
+ {a:'Veterinārārsts',p:['Mani pacienti nevar pastāstīt, kur sāp.','Dažam ir spalva, dažam zvīņas.','Es viņus ārstēju klīnikā.']},
+ {a:'Konditors',p:['Es ceļos ļoti agri.','Manā darbā smaržo pēc vaniļas un šokolādes.','Bez manis nebūtu dzimšanas dienas torte.']},
+ {a:'Pilots',p:['Mana darbavieta katru dienu ir citā valstī.','Es sēžu priekšā, bet neredzu ceļu.','Man jāzina laikapstākļi debesīs.']},
+ {a:'Bibliotekārs',p:['Manā darbavietā runā klusi.','Es zinu, kur atrodas katra grāmata.','Es varu ieteikt, ko lasīt.']},
+ {a:'Zemnieks',p:['Manu darbu nosaka gadalaiki.','Man ir liela mašīna ar lieliem riteņiem.','No mana darba sākas maizes ceļš.']},
+ {a:'Frizieris',p:['Cilvēki pie manis nāk pēc pieraksta.','Mans darbarīks griež, bet nav zāģis.','Pēc manis cilvēks izskatās citādāk.']},
+ {a:'Arhitekts',p:['Es strādāju ar zīmuli un datoru.','Mans darbs sākas, pirms sākas būvniecība.','Es izdomāju, kur būs logi un durvis.']},
+ {a:'Žurnālists',p:['Man vienmēr ir daudz jautājumu.','Es strādāju gan redakcijā, gan notikuma vietā.','No mana darba jūs uzzināt jaunumus.']},
+ {a:'Biškopis',p:['Man ir tūkstošiem mazu palīgu.','Es strādāju lēni un mierīgi.','Mans darba rezultāts ir salds.']},
+ {a:'Programmētājs',p:['Es rakstu, bet ne vēstules.','Manu tekstu lasa mašīna, nevis cilvēks.','Bez manis nedarbotos lietotnes telefonā.']},
+ {a:'Aktieris',p:['Katru vakaru es esmu kāds cits.','Man palīdz kostīms un grims.','Pēc darba man aplaudē.']},
+ {a:'Elektriķis',p:['Mani gaida gan skolā, gan slimnīcā, gan teātrī.','Mans darbs ir jādara ļoti uzmanīgi.','Kad esmu pabeidzis, deg gaisma.']},
+ {a:'Zvejnieks',p:['Mana darbavieta šūpojas.','Es ceļos, kad citi vēl guļ.','Mans loms nonāk veikalā.']},
+ {a:'Mežsargs',p:['Manā darbavietā nav sienu.','Es pazīstu dzīvnieku pēdas.','Es rūpējos, lai koki tiktu stādīti no jauna.']},
+ {a:'Fotogrāfs',p:['Es strādāju ar gaismu.','Man jāpaspēj īstajā mirklī.','Mans darbs paliek albumā.']},
+ {a:'Mašīnists',p:['Mans ceļš vienmēr ir viens un tas pats.','Es nevaru apbraukt apkārt.','Man ļoti svarīgi ir minūtes.']},
+ {a:'Tulks',p:['Es zinu vairāk nekā vienu valodu.','Bez manis divi cilvēki nesaprastu viens otru.','Es strādāju sanāksmēs un tiesā.']},
+ {a:'Dronu operators',p:['Mans darbarīks lido, bet es palieku uz zemes.','Es redzu pasauli no augšas.','Manu darbu izmanto filmās un lauksaimniecībā.']}
+];
+let mīklas = jaukt(MĪKLAS), mi = 0, pi = 0;
+function zīmētMīklu(){
+  const m = mīklas[mi]; pi = 1;
+  q('#skaitītājs6').textContent = `Mīkla ${mi+1} no ${mīklas.length}`;
+  q('#atbilde6').textContent = '?';
+  q('#foto6').innerHTML = '';
+  q('#pavedieni6').innerHTML = m.p.map((t,i)=>
+    `<div class="pavediens ${i===0?'redzams':''}">${i+1}. ${t}</div>`).join('');
+}
+q('#pavediens6').onclick = ()=>{
+  const p = qq('#pavedieni6 .pavediens');
+  if(pi < p.length){ p[pi].classList.add('redzams'); pi++; }
+};
+q('#atklāt6').onclick = ()=>{
+  qq('#pavedieni6 .pavediens').forEach(x=>x.classList.add('redzams'));
+  q('#atbilde6').textContent = mīklas[mi].a;
+  q('#foto6').innerHTML = foto(mīklas[mi].a, mīklas[mi].a + ' darbā');
+};
+q('#nākamā6').onclick = ()=>{
+  mi = (mi+1) % mīklas.length;
+  if(mi===0) mīklas = jaukt(MĪKLAS);
+  zīmētMīklu();
+};
+zīmētMīklu();
+
+/* ================= 7. MANA IZVĒLE ================= */
+let izvēlētās = [], skolēni = [], aktīvais = null;
+q('#izvēle7').innerHTML = P.map(x=>
+  `<button class="izv j-${x.j}" data-n="${x.n}">${x.n}</button>`).join('');
+qq('#izvēle7 .izv').forEach(b=>{
+  b.onclick = ()=>{
+    const n = b.dataset.n, i = izvēlētās.indexOf(n);
+    if(i>=0) izvēlētās.splice(i,1);
+    else { if(izvēlētās.length>=3){ q('#kopsav7').dataset.br='1'; kopsavilkums(); return; } izvēlētās.push(n); }
+    atjaunotIzvēli();
+  };
+});
+function atjaunotIzvēli(){
+  qq('#izvēle7 .izv').forEach(b=>b.classList.toggle('izvēlēts', izvēlētās.includes(b.dataset.n)));
+  q('#kopsav7').dataset.br='';
+  kopsavilkums();
+}
+function kopsavilkums(){
+  const el = q('#kopsav7');
+  if(izvēlētās.length===0){
+    el.innerHTML = `<h3>Tavas trīs profesijas</h3><p style="font-size:16.5px;color:#5b6b7a">
+      Vēl nav izvēlēts neviens. Pieskaries profesijai kreisajā pusē.</p>`;
+    return;
+  }
+  const skaits = {};
+  izvēlētās.forEach(n=>{ const j=atrast(n).j; skaits[j]=(skaits[j]||0)+1; });
+  const josla = Object.entries(skaits).map(([j,c])=>
+    `<i style="width:${c/izvēlētās.length*100}%;background:var(--${j})"></i>`).join('');
+  const leģ = Object.keys(skaits).map(j=>
+    `<span class="j-${j}">${JOMAS[j].nos}</span>`).join('');
+  el.innerHTML = `<h3>Tavas profesijas (${izvēlētās.length} no 3)</h3>
+    <ol>${izvēlētās.map(n=>{const x=atrast(n);
+      return `<li><b>${x.n}</b> — ${JOMAS[x.j].nos}<br><span style="color:#5b6b7a">Jātrenē: ${x.p.toLowerCase()}</span></li>`;}).join('')}</ol>
+    <div class="josla">${josla}</div>
+    <div class="leģenda">${leģ}</div>
+    ${el.dataset.br==='1' ? '<p style="color:#C75000;font-size:16px">Vairāk par trim nevar. Noņem vienu, lai pievienotu citu.</p>' : ''}`;
+}
+atjaunotIzvēli();
+
+function zīmētSkolēnus(){
+  q('#iniciāļi7').innerHTML = skolēni.map((s,i)=>
+    `<button class="inic ${i===aktīvais?'aktīvs':''}" data-i="${i}" title="${s.v}">${s.v.slice(0,2)}</button>`).join('');
+  qq('#iniciāļi7 .inic').forEach(b=>{
+    b.onclick = ()=>{
+      aktīvais = +b.dataset.i;
+      q('#vārds7').value = skolēni[aktīvais].v;
+      izvēlētās = skolēni[aktīvais].p.slice();
+      atjaunotIzvēli(); zīmētSkolēnus();
+    };
+  });
+}
+q('#saglabāt7').onclick = ()=>{
+  const v = q('#vārds7').value.trim();
+  if(!v){ q('#vārds7').focus(); return; }
+  if(skolēni.length>=30 && aktīvais===null) return;
+  const dati = {v, p:izvēlētās.slice()};
+  if(aktīvais!==null) skolēni[aktīvais]=dati;
+  else { skolēni.push(dati); aktīvais = skolēni.length-1; }
+  zīmētSkolēnus();
+};
+q('#jauns7').onclick = ()=>{
+  aktīvais=null; izvēlētās=[]; q('#vārds7').value='';
+  atjaunotIzvēli(); zīmētSkolēnus();
+};
+q('#drukāt7').onclick = ()=>{
+  if(skolēni.length===0){ alert('Vispirms saglabā vismaz vienu skolēnu.'); return; }
+  q('#druka').innerHTML = skolēni.map(s=>`
+    <div class="drukas-lapa">
+      <h2>Profesiju daudzveidība — ${s.v}</h2>
+      <p>Jaunmārupes pamatskola · manas trīs izvēlētās profesijas</p>
+      <table style="width:100%;border-collapse:collapse;font-size:15px;margin-top:12px">
+        <tr><th style="border:1px solid #999;padding:8px;text-align:left">Profesija</th>
+            <th style="border:1px solid #999;padding:8px;text-align:left">Darbu grupa</th>
+            <th style="border:1px solid #999;padding:8px;text-align:left">Ko dara</th>
+            <th style="border:1px solid #999;padding:8px;text-align:left">Prasme, ko trenēt jau tagad</th></tr>
+        ${s.p.map(n=>{const x=atrast(n); return `<tr>
+          <td style="border:1px solid #999;padding:8px"><b>${x.n}</b></td>
+          <td style="border:1px solid #999;padding:8px">${JOMAS[x.j].nos}</td>
+          <td style="border:1px solid #999;padding:8px">${x.ko}</td>
+          <td style="border:1px solid #999;padding:8px">${x.p}</td></tr>`;}).join('')}
+      </table>
+      <p style="margin-top:22px">Uzdevums mājās: pajautā vienam pieaugušajam, kāda ir viņa profesija un kas viņam tajā patīk visvairāk. Pieraksti atbildi:</p>
+      <p style="border-bottom:1px solid #999;height:26px"></p>
+      <p style="border-bottom:1px solid #999;height:26px"></p>
+      <p style="border-bottom:1px solid #999;height:26px"></p>
+    </div>`).join('');
+  window.print();
+};
+zīmētSkolēnus();
+
+/* ================= 8. PAŠPĀRBAUDE ================= */
+const JAUT = [
+ {t:'Kurš strādā slimnīcā?',a:['Ārsts','Mežsargs'],p:0,s:'Ārsts izmeklē un ārstē slimniekus slimnīcā vai poliklīnikā.'},
+ {t:'Ar ko strādā biškopis?',a:['Ar bitēm','Ar vilcieniem'],p:0,s:'Biškopis kopj bites un vāc medu dravā.'},
+ {t:'Kurš uzzīmē māju, pirms to sāk celt?',a:['Arhitekts','Pārdevējs'],p:0,s:'Arhitekts uzzīmē rasējumu, un tikai pēc tam būvnieki sāk celt.'},
+ {t:'Kurš darbs pieder grupai «cilvēks – daba»?',a:['Mežsargs','Grāmatvedis'],p:0,s:'Mežsargs strādā ar mežu un dzīvniekiem, grāmatvedis — ar skaitļiem.'},
+ {t:'Kas notiktu, ja pilsētā neviens neizvestu atkritumus?',a:['Pilsēta drīz kļūtu netīra','Nekas nemainītos'],p:0,s:'Katrs darbs kādam ir vajadzīgs. To pamana tad, kad tas netiek darīts.'},
+ {t:'Vai celtni var vadīt sieviete?',a:['Jā, ja apguvusi šo darbu','Nē, tas ir vīriešu darbs'],p:0,s:'Profesijas nedala pēc dzimuma. Nozīme ir apmācībai un prasmēm.'},
+ {t:'Kurš darbarīks noder frizierim?',a:['Šķēres','Zāģis'],p:0,s:'Ar šķērēm griež matus, ar zāģi — koku.'},
+ {t:'Kurš pirmais sāk maizes ceļu?',a:['Zemnieks, kas audzē kviešus','Pārdevējs veikalā'],p:0,s:'Vispirms izaug kvieši, tad tos samaļ, izcep un tikai beigās pārdod.'},
+ {t:'Kurā profesijā visvairāk noder prasme uzdot jautājumus?',a:['Žurnālists','Celtņa operators'],p:0,s:'Žurnālists uzzina jaunumus, uzdodot jautājumus cilvēkiem.'},
+ {t:'Kas ir profesija?',a:['Darbs, ko cilvēks iemācījies un dara katru dienu','Nodarbe brīvajā laikā'],p:0,s:'Profesiju apgūst mācoties. Vaļasprieks var kļūt par profesiju, ja to iemācās pa īstam.'},
+ {t:'Kurš rūpējas, lai skolā degtu gaisma?',a:['Elektriķis','Bibliotekārs'],p:0,s:'Elektriķis strādā ar vadiem un elektrību visās ēkās.'},
+ {t:'Ko dara dronu operators?',a:['Vada dronu un filmē no augšas','Cep maizi'],p:0,s:'Dronu izmanto filmēšanai, mērīšanai un lauku apsekošanai.'},
+ {t:'Kurā grupā ietilpst programmētājs?',a:['Cilvēks – zīmes','Cilvēks – daba'],p:0,s:'Programmētājs strādā ar simboliem un kodu, nevis ar augiem un dzīvniekiem.'},
+ {t:'Kurš var strādāt gan skolā, gan slimnīcā, gan teātrī?',a:['Elektriķis','Mežsargs'],p:0,s:'Viena profesija bieži der daudzās darba vietās.'},
+ {t:'Kāpēc ir vērts zināt daudz profesiju?',a:['Lai būtu, no kā izvēlēties','Lai varētu izrādīties'],p:0,s:'Jo vairāk profesiju cilvēks zina, jo plašāka ir viņa izvēle nākotnē.'},
+ {t:'Kurš ārstē dzīvniekus?',a:['Veterinārārsts','Ārsts'],p:0,s:'Ārsts ārstē cilvēkus, veterinārārsts — dzīvniekus.'},
+ {t:'Kura prasme vairāk noder galdniekam?',a:['Precīzi mērīt','Skaisti dziedāt'],p:0,s:'Ja mērījums nav precīzs, mēbeles detaļas nesaderēs kopā.'},
+ {t:'Vai viena cilvēka darbs ir saistīts ar citu darbu?',a:['Jā, gandrīz vienmēr','Nē, katrs strādā viens'],p:0,s:'Pat vienkārša lieta nonāk pie mums caur daudzu cilvēku darbu.'},
+ {t:'Kurš strādā bibliotēkā?',a:['Bibliotekārs','Mašīnists'],p:0,s:'Bibliotekārs kārto grāmatas un palīdz izvēlēties lasāmvielu.'},
+ {t:'Ko dara kartogrāfs?',a:['Zīmē kartes','Vada lidmašīnu'],p:0,s:'Kartogrāfs zīmē kartes un plānus, lai citi varētu orientēties.'}
+];
+function personīgie(){
+  const j = [];
+  izvēlētās.slice(0,2).forEach(n=>{
+    const x = atrast(n);
+    const cits = P.find(y=>y.kur!==x.kur && y.j!==x.j);
+    j.push({t:`Tu izvēlējies profesiju «${x.n}». Kur šis cilvēks strādā?`,
+            a:[x.kur, cits.kur], p:0, s:`${x.n}: ${x.ko} Darba vieta — ${x.kur.toLowerCase()}.`});
+  });
+  return j;
+}
+function zīmētJautājumus(){
+  const kopa = jaukt(JAUT).slice(0,10).concat(personīgie());
+  let atbildēts=0, pareizi=0;
+  q('#punkti8').textContent='';
+  q('#jautājumi8').innerHTML = kopa.map((j,i)=>{
+    const kārtība = Math.random()<0.5 ? [0,1] : [1,0];
+    j.k = kārtība;
+    return `<div class="jaut">
+      <div class="t"><b>${i+1}.</b> ${j.t}</div>
+      <div class="atbildes">${kārtība.map(n=>
+        `<button data-j="${i}" data-n="${n}">${j.a[n]}</button>`).join('')}</div>
+      <div class="skaidrojums" id="sk-${i}">${j.s}</div></div>`;
+  }).join('');
+  qq('#jautājumi8 .atbildes button').forEach(b=>{
+    b.onclick = ()=>{
+      const i=+b.dataset.j, n=+b.dataset.n, j=kopa[i], grupa=b.parentElement;
+      if(grupa.dataset.gatavs) return;
+      grupa.dataset.gatavs='1';
+      grupa.querySelectorAll('button').forEach(x=>{
+        if(+x.dataset.n===j.p) x.classList.add('pareizi');
+        else if(x===b) x.classList.add('nepareizi');
+      });
+      q('#sk-'+i).classList.add('redzams');
+      atbildēts++; if(n===j.p) pareizi++;
+      if(atbildēts===kopa.length)
+        q('#punkti8').textContent = `Pareizi: ${pareizi} no ${kopa.length}. ${pareizi===kopa.length?'Teicami!':'Vari mēģināt vēlreiz ar jauniem jautājumiem.'}`;
+    };
+  });
+}
+q('#jauni8').onclick = zīmētJautājumus;
+zīmētJautājumus();
+</script>
+</body>
+</html>
