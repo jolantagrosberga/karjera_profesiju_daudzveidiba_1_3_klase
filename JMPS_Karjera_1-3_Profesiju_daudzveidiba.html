@@ -162,8 +162,8 @@ h2{color:var(--zils);font-size:26px;margin:2px 0 6px}
 .mīklas-lauks{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
 .pavedieni{display:grid;gap:12px}
 .pavediens{background:#f7fafd;border:2px solid var(--mala);border-radius:16px;padding:16px 20px;font-size:20px;
-  opacity:.25}
-.pavediens.redzams{opacity:1;border-color:var(--zils2);background:#eff6fd}
+  color:#a9b7c4;letter-spacing:.14em}
+.pavediens.redzams{color:var(--teksts);letter-spacing:normal;border-color:var(--zils2);background:#eff6fd}
 .atbilde-kaste{border:3px solid var(--oranžs);border-radius:18px;padding:20px;text-align:center;background:#fff8f2}
 .atbilde-kaste .a{font-size:30px;color:var(--oranžs);margin:8px 0 0;min-height:38px}
 .mīklas-skaitītājs{font-size:16px;color:var(--klusi)}
@@ -418,11 +418,10 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
   <!-- ===================== 5. ĶĒDE ===================== -->
   <section class="skats" id="s5" role="tabpanel">
     <h2>Profesiju ķēde</h2>
-    <p class="pamāc">Saliec profesijas pareizā secībā — no pirmā darba līdz brīdim, kad lieta nonāk pie tevis. Ievelc kartīti ciparu lodziņā vai pieskaries vispirms kartītei, tad lodziņam.</p>
+    <p class="pamāc">Saliec profesijas pareizā secībā — no pirmā darba līdz brīdim, kad lieta nonāk pie tevis. Lodziņā ieies tikai pareizā kartīte; ja secība nav pareiza, lodziņš iemirdzas sarkans.</p>
     <div class="ķēdes-izvēle nedrukāt" id="ķēdes-izvēle"></div>
     <div class="prod-foto" id="prod5"></div>
     <div class="rīki nedrukāt">
-      <button class="poga" id="pārbaudīt5">Pārbaudīt</button>
       <button class="poga klusa" id="notīrīt5">Notīrīt</button>
       <span class="statuss" id="statuss5"></span>
     </div>
@@ -1008,6 +1007,7 @@ function zīmēt5(){
         sl.querySelector('.v').textContent = '';
         sl.querySelector('.att').innerHTML = '';
         sl.className = 'slots';
+        q('#statuss5').textContent = '';
         q(`#kartītes5 .čips[data-s="${vecais}"]`).classList.remove('izlietots');
         return;
       }
@@ -1020,15 +1020,26 @@ function zīmēt5(){
 function ielikt5(sl, i, c){
   const solis = c.s.find(x=>x.t===izv5);
   if(!solis) return;
+  if(c.s[i].t !== izv5){
+    sl.classList.add('nepareizi');
+    setTimeout(()=>sl.classList.remove('nepareizi'), 700);
+    q('#statuss5').textContent = i === 0
+      ? 'Šis nav pirmais solis. Padomā, ar ko viss sākas.'
+      : `Šis nav ${i+1}. solis. Padomā, kas notiek pirms tam.`;
+    return;
+  }
   sloti[i] = izv5;
   sl.querySelector('.v').textContent = izv5;
   const u = ATTĒLI[solis.f];
   sl.querySelector('.att').innerHTML = u ? `<img src="${u}" alt="${izv5}" loading="lazy">` : '';
-  sl.classList.add('pilns'); sl.classList.remove('mērķis');
+  sl.classList.add('pilns', 'pareizi'); sl.classList.remove('mērķis');
   const č = q(`#kartītes5 .čips[data-s="${izv5}"]`);
   č.classList.add('izlietots'); č.classList.remove('izvēlēts'); č.draggable = false;
   izv5 = null;
-  q('#statuss5').textContent = '';
+  const gatavi = sloti.filter(Boolean).length;
+  q('#statuss5').textContent = gatavi === c.s.length
+    ? 'Visa ķēde ir pareiza! Tik daudz cilvēku strādā pie vienas lietas.'
+    : `Pareizi! Salikti ${gatavi} no ${c.s.length}.`;
 }
 qq('#ķēdes-izvēle button').forEach(b=>{
   b.onclick = ()=>{ ķēde = b.dataset.ķ;
@@ -1036,17 +1047,6 @@ qq('#ķēdes-izvēle button').forEach(b=>{
     zīmēt5(); };
 });
 q('#notīrīt5').onclick = zīmēt5;
-q('#pārbaudīt5').onclick = ()=>{
-  const c = ĶĒDES[ķēde]; let p = 0;
-  qq('#ķēde5 .slots').forEach((sl,i)=>{
-    sl.classList.remove('pareizi','nepareizi');
-    if(!sloti[i]) return;
-    if(sloti[i] === c.s[i].t){ sl.classList.add('pareizi'); p++; } else sl.classList.add('nepareizi');
-  });
-  q('#statuss5').textContent = p === c.s.length
-    ? 'Visa ķēde ir pareiza! Tik daudz cilvēku strādā pie vienas lietas.'
-    : `Pareizi: ${p} no ${c.s.length}. Sarkanās vietas pārliec vēlreiz.`;
-};
 zīmēt5();
 
 /* ================= 6. MĪKLAS ================= */
@@ -1079,14 +1079,22 @@ function zīmētMīklu(){
   q('#atbilde6').textContent = '?';
   q('#foto6').innerHTML = '';
   q('#pavedieni6').innerHTML = m.p.map((t,i)=>
-    `<div class="pavediens ${i===0?'redzams':''}">${i+1}. ${t}</div>`).join('');
+    `<div class="pavediens ${i===0?'redzams':''}">${i===0 ? (i+1)+'. '+t : (i+1)+'. ' + '● ● ● ● ●'}</div>`).join('');
 }
 q('#pavediens6').onclick = ()=>{
   const p = qq('#pavedieni6 .pavediens');
-  if(pi < p.length){ p[pi].classList.add('redzams'); pi++; }
+  if(pi < p.length){
+    p[pi].textContent = (pi+1) + '. ' + mīklas[mi].p[pi];
+    p[pi].classList.add('redzams');
+    pi++;
+  }
 };
 q('#atklāt6').onclick = ()=>{
-  qq('#pavedieni6 .pavediens').forEach(x=>x.classList.add('redzams'));
+  qq('#pavedieni6 .pavediens').forEach((x,i)=>{
+    x.textContent = (i+1) + '. ' + mīklas[mi].p[i];
+    x.classList.add('redzams');
+  });
+  pi = mīklas[mi].p.length;
   q('#atbilde6').textContent = mīklas[mi].a;
   q('#foto6').innerHTML = foto(mīklas[mi].a, mīklas[mi].a + ' darbā');
 };
