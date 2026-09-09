@@ -229,6 +229,11 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
 .prod-foto p{margin:0;font-size:17px;color:var(--klusi);max-width:60ch}
 #foto6 img{width:100%;max-height:190px;object-fit:cover;border-radius:14px;margin-top:12px}
 .vieta.pārvelk{border-color:var(--oranžs);background:#fff2e6}
+.lupa{position:fixed;inset:0;background:rgba(20,35,50,.82);display:none;place-items:center;z-index:60;padding:26px;cursor:zoom-out}
+.lupa.redzama{display:grid}
+.lupa img{width:min(760px,90vw);max-height:78vh;object-fit:contain;border-radius:18px;border:5px solid #fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lupa .paraksts{margin-top:14px;text-align:center;color:#fff;font-size:23px}
+#prod5 img,#ķēde5 .slots img{cursor:zoom-in}
 .vienība.mērķis{border-style:dashed;border-color:var(--zils2)}
 .vienība.pārvelk{border-color:var(--oranžs);background:#fff2e6}
 .slots.mērķis{border-color:var(--zils2)}
@@ -502,6 +507,10 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
   </section>
 
   <div class="druka" id="druka"></div>
+</div>
+
+<div class="lupa" id="lupa" role="dialog" aria-modal="true" aria-label="Palielināts attēls">
+  <div><img id="lupa-att" alt=""><div class="paraksts" id="lupa-paraksts"></div></div>
 </div>
 
 <div class="logs" id="logs" role="dialog" aria-modal="true" aria-labelledby="loga-nos">
@@ -1048,6 +1057,25 @@ qq('#ķēdes-izvēle button').forEach(b=>{
 });
 q('#notīrīt5').onclick = zīmēt5;
 zīmēt5();
+
+/* ---- attēla palielināšana ķēdes cilnē ---- */
+const lupa = q('#lupa');
+function atvērtLupu(src, paraksts){
+  q('#lupa-att').src = src;
+  q('#lupa-att').alt = paraksts || '';
+  q('#lupa-paraksts').textContent = paraksts || '';
+  lupa.classList.add('redzama');
+}
+function aizvērtLupu(){ lupa.classList.remove('redzama'); q('#lupa-att').src = ''; }
+lupa.onclick = aizvērtLupu;
+document.addEventListener('keydown', e => { if(e.key === 'Escape') aizvērtLupu(); });
+document.addEventListener('click', e => {
+  const a = e.target.closest('#prod5 img, #ķēde5 .slots img');
+  if(!a) return;
+  e.stopPropagation();
+  if(lupa.classList.contains('redzama')) aizvērtLupu();
+  else atvērtLupu(a.src, a.alt);
+}, true);
 
 /* ================= 6. MĪKLAS ================= */
 const MĪKLAS = [
