@@ -17,7 +17,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{
+#app{
   font-family:Candara,Aptos,"Segoe UI",system-ui,sans-serif;
   color:var(--teksts);
   background:
@@ -25,7 +25,7 @@ body{
     radial-gradient(680px 480px at 96% 4%, #fbe6d6 0%, rgba(251,230,214,0) 60%),
     radial-gradient(700px 520px at 50% 108%, #e6f2e4 0%, rgba(230,242,228,0) 62%),
     #f3f6fa;
-  min-height:100vh;
+  min-height:900px;
   padding:14px;
 }
 .lapa{
@@ -107,7 +107,7 @@ h2{color:var(--zils);font-size:26px;margin:2px 0 6px}
 .logs{position:fixed;inset:0;background:rgba(20,35,50,.55);display:none;place-items:center;z-index:50;padding:20px}
 .logs.redzams{display:grid}
 .loga-saturs{background:#fff;border-radius:22px;max-width:660px;width:100%;padding:24px 26px;
-  border-top:12px solid var(--j);max-height:94vh;overflow-y:auto}
+  border-top:12px solid var(--j);max-height:846px;overflow-y:auto}
 .loga-saturs .galvene{display:flex;align-items:center;gap:16px;margin-bottom:12px}
 .loga-saturs .galvene svg{width:56px;height:56px;stroke:var(--j);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .loga-saturs h3{margin:0;font-size:28px;color:var(--j)}
@@ -231,7 +231,7 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
 .vieta.pārvelk{border-color:var(--oranžs);background:#fff2e6}
 .lupa{position:fixed;inset:0;background:rgba(20,35,50,.82);display:none;place-items:center;z-index:60;padding:26px;cursor:zoom-out}
 .lupa.redzama{display:grid}
-.lupa img{width:min(760px,90vw);max-height:78vh;object-fit:contain;border-radius:18px;border:5px solid #fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lupa img{width:min(760px,1440px);max-height:702px;object-fit:contain;border-radius:18px;border:5px solid #fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .lupa .paraksts{margin-top:14px;text-align:center;color:#fff;font-size:23px}
 #prod5 img,#ķēde5 .slots img{cursor:zoom-in}
 .vienība.mērķis{border-style:dashed;border-color:var(--zils2)}
@@ -250,23 +250,46 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
   .drukas-lapa{page-break-after:always;padding:18mm}
   .drukas-lapa h2{font-size:24px}
 }
-@media (max-width:1200px){
-  .flīzes{grid-template-columns:repeat(3,1fr)}
-  .kartes{grid-template-columns:repeat(3,1fr)}
-  .izvēles-lauks,.mīklas-lauks,.vietu-lauks,.pāru-lauks{grid-template-columns:1fr}
-  .izvēles-kartes{grid-template-columns:repeat(4,1fr)}
-  .jautājumi{grid-template-columns:1fr}
-  .ķēde{grid-template-columns:repeat(4,1fr)}
+/* noņemts @media (max-width:1200px) (16:9) */
+/* noņemts @media (max-height:860px) (16:9) */
+
+/* ── 16:9 ietvars ── */
+html,body{width:100%;height:100%;overflow:hidden;}
+#app{position:absolute;top:0;left:0;width:1600px;height:900px;transform-origin:0 0;overflow:hidden;box-sizing:border-box;}
+@media print{
+  html,body{overflow:visible!important;height:auto!important;}
+  #app{position:static!important;transform:none!important;width:auto!important;height:auto!important;overflow:visible!important;}
+  #fsBtn{display:none!important;}
 }
-@media (max-height:860px){
-  .lapa{padding:14px 20px 20px}
-  .galva h1{font-size:31px}
-  .flīze{min-height:224px}
-  .cilnes button{padding:9px 14px;font-size:15.5px;min-height:46px}
-}
+
+#app{padding:14px 18px!important;min-height:0!important;}
+.lapa{max-width:none!important;width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;margin:0!important;padding:16px 26px 18px!important;}
+.lapa > .galva, .lapa > nav{flex:none;}
+.skats.aktīvs{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;padding-right:6px;}
+.galva{padding-bottom:10px!important;}
+.galva .logo{width:96px!important;}
+.cilnes{margin:12px 0 12px!important;}
+.cilnes button{min-height:46px!important;padding:8px 16px!important;}
+#fsBtn{flex:none;font:inherit;font-size:16px;font-weight:700;border:2px solid var(--zils);background:#fff;color:var(--zils);
+  border-radius:999px;padding:9px 18px;cursor:pointer;white-space:nowrap;margin-left:auto;}
+#fsBtn:hover{background:var(--zils);color:#fff;}
+#fsBtn + .klase-zīme{margin-left:12px!important;}
+.skats .jautājumi{grid-template-columns:repeat(3,1fr)!important;gap:10px!important;}
+.skats .jaut{padding:10px 12px!important;}
+.skats .jaut .t{font-size:16px!important;margin-bottom:8px!important;}
+.skats .atbildes{flex-direction:row!important;gap:6px!important;}
+.skats .atbildes button{flex:1;font-size:15px!important;padding:8px 10px!important;}
+.skats .vieta{min-height:130px!important;}
+.skats .prod-foto img{height:100px!important;}
+.skats .prod-foto{margin-bottom:8px!important;}
+.skats .ķēde{margin-bottom:10px!important;}
+.skats h2{margin-top:0!important;margin-bottom:4px!important;}
+.skats .pamāc{margin-bottom:8px!important;}
+.skats > .rīki{margin-top:4px!important;margin-bottom:8px!important;}
 </style>
 </head>
 <body>
+<div id="app">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-grāmata" viewBox="0 0 24 24"><path d="M4 4h7v16H4z"/><path d="M13 4h7v16h-7z"/><path d="M11 4v16"/></symbol>
 <symbol id="i-stetoskops" viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="10" r="2.4"/></symbol>
@@ -332,6 +355,7 @@ canvas.audekls{width:100%;height:190px;background:#fff;border:2px dashed var(--m
       <p class="apakš">Pasaulē ir tūkstošiem darbu. Šodien iepazīsim, ko cilvēki dara, kur strādā un kā darbi ir saistīti cits ar citu.</p>
       <p class="autors">Interaktīvo rīku sagatavoja Jaunmārupes pamatskolas pedagoģe-karjeras konsultante <b>Jolanta Grosberga-Gernere</b></p>
     </div>
+    <button id="fsBtn" type="button">⛶ Atvērt pilnekrānu</button>
     <div class="klase-zīme">1.–3. klase</div>
   </header>
 
@@ -1287,6 +1311,40 @@ function zīmētJautājumus(){
 }
 q('#jauni8').onclick = zīmētJautājumus;
 zīmētJautājumus();
+</script>
+</div>
+
+<script>
+/* ── 16:9 mērogošana un pilnekrāns ── */
+(function(){
+  var app=document.getElementById('app');
+  window.APP_SCALE=1;
+  function fitApp(){
+    var W=window.innerWidth,H=window.innerHeight;
+    var s=Math.min(W/1600,H/900); window.APP_SCALE=s;
+    app.style.transform='scale('+s+')';
+    app.style.left=Math.max(0,(W-1600*s)/2)+'px';
+    app.style.top=Math.max(0,(H-900*s)/2)+'px';
+  }
+  window.fitApp=fitApp;
+  window.addEventListener('resize',fitApp); fitApp();
+  var btn=document.getElementById('fsBtn');
+  function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function fallback(){ if(confirm('Pilnekrāna režīms šajā logā nav pieejams. Atvērt rīku jaunā cilnē?')) window.open(location.href,'_blank'); }
+  function toggle(){
+    var el=document.documentElement;
+    try{
+      if(isFs()) (document.exitFullscreen||document.webkitExitFullscreen).call(document);
+      else if(el.requestFullscreen) el.requestFullscreen().catch(fallback);
+      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else fallback();
+    }catch(e){fallback();}
+  }
+  function upd(){ if(btn) btn.textContent=isFs()?'✕ Iziet no pilnekrāna':'⛶ Atvērt pilnekrānu'; setTimeout(fitApp,60); }
+  if(btn) btn.addEventListener('click',toggle);
+  document.addEventListener('fullscreenchange',upd);
+  document.addEventListener('webkitfullscreenchange',upd);
+})();
 </script>
 </body>
 </html>
